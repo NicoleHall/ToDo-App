@@ -1,12 +1,19 @@
 import $ from 'jquery';
 import _ from 'underscore';
 import Handlebars from 'handlebars';
+import lscache from 'lscache';
 
 //  creating a jQuery module
 $(function(){
   //  data model aka database
+  var savedData = lscache.get('toDos');
+  var toDos;
+  if (savedData === null){
+    toDos = [];
+  } else {
+    toDos = savedData;
+  }
 
-  var toDos = [];
   //  Application controller aka the one main object that stores everything our app needs
   var template;
   var app = {
@@ -16,6 +23,8 @@ $(function(){
     },
     render: function(){
       //  render the todos
+      lscache.set('toDos', toDos)
+      //  we are createating a keyvalue pair on line 28
       var todoHtml = _.map(toDos, function(toDo){
        return template(toDo);
        // the return value ends up being HTML code
