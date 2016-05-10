@@ -1,15 +1,18 @@
-@import url(https://fonts.googleapis.com/css?family=Monoton);.todo-container h1 {
+@import url(https://fonts.googleapis.com/css?family=Monoton);
+
+.todo-container h1 {
   font-family: 'Monoton', cursive;
 }
 
 h1 {
   text-align: center;
-}
+   }
 
 .todo-container {
   width: 500px;
   margin: 5px auto;
   margin-top: 20px;
+
 }
 
 .list-group-item {
@@ -18,6 +21,7 @@ h1 {
 
 .add-todo-container {
   margin-bottom: 8px;
+
 }
 
 .add-todo-container .col-md-10 {
@@ -28,5 +32,3 @@ h1 {
   padding-right: 0;
   text-align: right;
 }
-
-/*# sourceMappingURL=main.css.map*/

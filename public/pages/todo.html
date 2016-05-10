@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="/main.css">
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+  <script type="text/javascript" async="async" defer="defer" src="/application.js"></script>
+</head>
+<body>
+  <!-- Imports -->
+
+  <!-- Application -->
+
+  <div class="todo-container">
+    <h1>To Do List</h1>
+    <div class="add-todo-container row">
+      <div class="col-md-10"><input type="text" class="form-control" placeholder="new to do item"></div>
+      <div class="col-md-2"><button class='btn btn-primary'>Add</button></div>
+    </div>
+    <ul class="list-group"></ul>
+  </div>
+
+
+  <!-- templates -->
+  <script type="text/x-handlebars-template">
+    <li class="list-group-item row {{#if completed}}disabled{{/if}}">
+      <div class="col-md-1 list-item"><input type="checkbox" {{#if completed}}checked{{/if}}></div>
+      <div class="col-md-10">{{title}}</div>
+      <div class="col-md-1">
+        <button type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </li>
+  </script>
+</body>
+</html>
