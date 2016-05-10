@@ -63,7 +63,19 @@
 	var _pagesProject2 = _interopRequireDefault(_pagesProject);
 	
 	(0, _jquery2['default'])(function () {
-	  _pagesTodo2['default'].init();
+	  //  what page are we on?
+	  var url = window.location.pathname;
+	
+	  //  this is the javascript router
+	
+	  switch (url) {
+	    case 'pages/todo.html':
+	      _pagesTodo2['default'].init();
+	      break;
+	    case 'project/todo.html':
+	      //  init the project javascript
+	      break;
+	  }
 	});
 	
 	//  these import statements are how web pack does what it does
