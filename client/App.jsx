@@ -8,12 +8,12 @@ $(function(){
   var url = window.location.pathname;
 
   //  this is the javascript router
-  
+
   switch (url) {
-    case 'pages/todo.html':
+    case '/pages/todo.html':
       todos.init();
       break;
-    case 'project/todo.html':
+    case '/project/todo.html':
       //  init the project javascript
       break;
   }
