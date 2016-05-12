@@ -2,6 +2,7 @@ import $ from 'jquery';
 import 'styles/main.scss';
 import todos from 'pages/todo';
 import project from 'pages/project';
+import funnySquares from 'pages/funnySquares';
 
 $(function(){
   //  what page are we on?
@@ -13,9 +14,13 @@ $(function(){
     case '/pages/todo.html':
       todos.init();
       break;
-    case '/project/todo.html':
+    case '/project/project.html':
+      project.init();
       //  init the project javascript
       break;
+    case '/pages/funnySquares.html':
+        funnySquares.init();
+        break;
   }
 
 });

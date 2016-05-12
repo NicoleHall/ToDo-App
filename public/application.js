@@ -62,6 +62,10 @@
 	
 	var _pagesProject2 = _interopRequireDefault(_pagesProject);
 	
+	var _pagesFunnySquares = __webpack_require__(53);
+	
+	var _pagesFunnySquares2 = _interopRequireDefault(_pagesFunnySquares);
+	
 	(0, _jquery2['default'])(function () {
 	  //  what page are we on?
 	  var url = window.location.pathname;
@@ -72,8 +76,12 @@
 	    case '/pages/todo.html':
 	      _pagesTodo2['default'].init();
 	      break;
-	    case '/project/todo.html':
+	    case '/project/project.html':
+	      _pagesProject2['default'].init();
 	      //  init the project javascript
+	      break;
+	    case '/pages/funnySquares.html':
+	      _pagesFunnySquares2['default'].init();
 	      break;
 	  }
 	});
@@ -9933,7 +9941,7 @@
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"todo-container":"todo-container","list-group-item":"list-group-item","add-todo-container":"add-todo-container","col-md-10":"col-md-10","col-md-2":"col-md-2"};
+	module.exports = {"todo-container":"todo-container","list-group-item":"list-group-item","add-todo-container":"add-todo-container","col-md-10":"col-md-10","col-md-2":"col-md-2","show":"show","hidden":"hidden","invisible":"invisible","square":"square"};
 
 /***/ },
 /* 3 */,
@@ -19180,9 +19188,29 @@
 /* 52 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
-	var app = {};
+	var app = {
+	  init: function init() {
+	    $('#button_called_hide').click(function () {
+	      $('img').addClass('hidden');
+	    });
+	  }
+	};
+	
+	module.exports = app;
+
+/***/ },
+/* 53 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var app = {
+	  init: function init() {
+	    alert('funny Squares!!');
+	  }
+	};
 	
 	module.exports = app;
 
