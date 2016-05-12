@@ -1,5 +1,6 @@
 h1 {
   color: red;
+  text-align: left;
 }
 
 .square {
@@ -11,4 +12,37 @@ h1 {
   line-height: 100px;
   font-family: arial;
   font-size: 42px;
+  transform: none;
+  transition: transform .5s;
+}
+
+.square1:hover {
+  transform: skewX(45deg);
+}
+
+.square2:hover {
+  transform: rotate(45deg);
+}
+
+.square3:hover {
+  transform: scale(.8, .5);
+}
+
+.square4:hover {
+  transform: rotateY(745deg) rotateX(45deg);
+  transition: transform .5s;
+}
+
+.square5-container {
+  perspective: 50px;
+  display: inline-block;
+}
+.square5:hover {
+  -webkit-transform: rotateX(45deg);
+  transform: rotateX(45deg);
+  transition: transform .5s;
+}
+
+.square6:hover {
+  transform: translate3d(20px, 50px, -100px);
 }

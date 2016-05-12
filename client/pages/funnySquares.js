@@ -1,6 +1,6 @@
 var app = {
   init: function(){
-    alert('funny Squares!!');
+    //  alert('funny Squares!!');
   }
 };
 

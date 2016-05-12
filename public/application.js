@@ -76,7 +76,7 @@
 	    case '/pages/todo.html':
 	      _pagesTodo2['default'].init();
 	      break;
-	    case '/project/project.html':
+	    case '/pages/project.html':
 	      _pagesProject2['default'].init();
 	      //  init the project javascript
 	      break;
@@ -9941,7 +9941,7 @@
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"todo-container":"todo-container","list-group-item":"list-group-item","add-todo-container":"add-todo-container","col-md-10":"col-md-10","col-md-2":"col-md-2","show":"show","hidden":"hidden","invisible":"invisible","square":"square"};
+	module.exports = {"todo-container":"todo-container","list-group-item":"list-group-item","add-todo-container":"add-todo-container","col-md-10":"col-md-10","col-md-2":"col-md-2","show":"show","hidden":"hidden","invisible":"invisible","square":"square","square1":"square1","square2":"square2","square3":"square3","square4":"square4","square5-container":"square5-container","square5":"square5","square6":"square6"};
 
 /***/ },
 /* 3 */,
@@ -19192,8 +19192,12 @@
 	
 	var app = {
 	  init: function init() {
-	    $('#button_called_hide').click(function () {
+	    $('#button_called_hide').on("click", function () {
 	      $('img').addClass('hidden');
+	    });
+	
+	    $('#button_called_show').on("click", function () {
+	      $('img').removeClass('hidden');
 	    });
 	  }
 	};
@@ -19204,11 +19208,11 @@
 /* 53 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	var app = {
 	  init: function init() {
-	    alert('funny Squares!!');
+	    //  alert('funny Squares!!');
 	  }
 	};
 	

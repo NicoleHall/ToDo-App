@@ -14,7 +14,7 @@ $(function(){
     case '/pages/todo.html':
       todos.init();
       break;
-    case '/project/project.html':
+    case '/pages/project.html':
       project.init();
       //  init the project javascript
       break;
