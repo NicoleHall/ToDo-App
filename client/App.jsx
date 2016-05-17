@@ -3,14 +3,21 @@ import 'styles/main.scss';
 import todos from 'pages/todo';
 import project from 'pages/project';
 import funnySquares from 'pages/funnySquares';
+import header from 'components/header';
+
 
 $(function(){
+  header.init();
+
   //  what page are we on?
   var url = window.location.pathname;
 
   //  this is the javascript router
 
   switch (url) {
+    case '/':
+      personalPortfolio.init();
+      break;
     case '/pages/todo.html':
       todos.init();
       break;

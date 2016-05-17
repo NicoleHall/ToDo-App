@@ -66,13 +66,22 @@
 	
 	var _pagesFunnySquares2 = _interopRequireDefault(_pagesFunnySquares);
 	
+	var _componentsHeader = __webpack_require__(54);
+	
+	var _componentsHeader2 = _interopRequireDefault(_componentsHeader);
+	
 	(0, _jquery2['default'])(function () {
+	  _componentsHeader2['default'].init();
+	
 	  //  what page are we on?
 	  var url = window.location.pathname;
 	
 	  //  this is the javascript router
 	
 	  switch (url) {
+	    case '/':
+	      personalPortfolio.init();
+	      break;
 	    case '/pages/todo.html':
 	      _pagesTodo2['default'].init();
 	      break;
@@ -19185,18 +19194,24 @@
 
 /***/ },
 /* 52 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _jquery = __webpack_require__(1);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
 	var app = {
 	  init: function init() {
-	    $('#button_called_hide').on("click", function () {
-	      $('img').addClass('hidden');
+	    (0, _jquery2['default'])('#button_called_hide').on('click', function () {
+	      (0, _jquery2['default'])('img').addClass('hidden');
 	    });
 	
-	    $('#button_called_show').on("click", function () {
-	      $('img').removeClass('hidden');
+	    (0, _jquery2['default'])('#button_called_show').on('click', function () {
+	      (0, _jquery2['default'])('img').removeClass('hidden');
 	    });
 	  }
 	};
@@ -19216,6 +19231,39 @@
 	};
 	
 	module.exports = app;
+
+/***/ },
+/* 54 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _jquery = __webpack_require__(1);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _htmlTemplatesNavbarHtml = __webpack_require__(55);
+	
+	var _htmlTemplatesNavbarHtml2 = _interopRequireDefault(_htmlTemplatesNavbarHtml);
+	
+	var app = {
+	  init: function init() {
+	    app.render();
+	  },
+	  render: function render() {
+	    (0, _jquery2['default'])('header').append(_htmlTemplatesNavbarHtml2['default']);
+	  }
+	};
+	
+	module.exports = app;
+
+/***/ },
+/* 55 */
+/***/ function(module, exports) {
+
+	module.exports = "<nav>\n  <a role=\"menuitem\" href=\"/pages/todo.html\">Todo Application</a>\n  <a role=\"menuitem\" href=\"/pages/project.html\">My Project</a>\n  <a role=\"menuitem\" href=\"/pages/funnySquares.html\">Funny Squares</a>\n  <a role=\"menuitem\" href=\"/pages/personalPortfolio.html\">Personal Portfolio</a>\n</nav>\n";
 
 /***/ }
 /******/ ]);

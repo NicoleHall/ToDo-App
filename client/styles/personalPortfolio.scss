@@ -1,0 +1,20 @@
+@import url(// put goggle font url);
+
+.header-content {
+  width: 100%;
+  background: #FFFACD;
+  position: fixed;
+  top: 0px;
+}
+
+.header {
+  height: 50px;
+  background: #40E0D0;
+  border: 1px solid black;
+  width: 960px;
+  margin: 0px auto;
+}
+
+h1.align-right {
+  text-align: right;
+}
