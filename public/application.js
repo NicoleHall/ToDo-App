@@ -9969,7 +9969,6 @@
 	//  creating a jQuery module
 	
 	//  data model aka database
-	
 	var $ = __webpack_require__(1);
 	
 	//  legacy loading for bootstrap for es5
@@ -9994,7 +9993,7 @@
 	  render: function render() {
 	    //  render the todos
 	    _lscache2['default'].set('toDos', toDos);
-	    //  we are createating a keyvalue pair on line 28
+	    //  we are createting a keyvalue pair with lscache.set
 	    var todoHtml = _underscore2['default'].map(toDos, function (toDo) {
 	      return template(toDo);
 	      // the return value ends up being HTML code

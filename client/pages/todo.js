@@ -1,4 +1,3 @@
-
 var $ = require('jquery');
 
 //  legacy loading for bootstrap for es5
@@ -30,7 +29,7 @@ var app = {
   render: function(){
     //  render the todos
     lscache.set('toDos', toDos);
-    //  we are createating a keyvalue pair on line 28
+    //  we are createting a keyvalue pair with lscache.set
     var todoHtml = _.map(toDos, function(toDo){
      return template(toDo);
      // the return value ends up being HTML code
