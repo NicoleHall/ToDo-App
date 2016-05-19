@@ -70,6 +70,10 @@
 	
 	var _componentsHeader2 = _interopRequireDefault(_componentsHeader);
 	
+	var _pagesPersonalPortfolio = __webpack_require__(56);
+	
+	var _pagesPersonalPortfolio2 = _interopRequireDefault(_pagesPersonalPortfolio);
+	
 	(0, _jquery2['default'])(function () {
 	  _componentsHeader2['default'].init();
 	
@@ -80,7 +84,7 @@
 	
 	  switch (url) {
 	    case '/':
-	      personalPortfolio.init();
+	      _pagesPersonalPortfolio2['default'].init();
 	      break;
 	    case '/pages/todo.html':
 	      _pagesTodo2['default'].init();
@@ -9950,7 +9954,7 @@
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"todo-container":"todo-container","list-group-item":"list-group-item","add-todo-container":"add-todo-container","col-md-10":"col-md-10","col-md-2":"col-md-2","show":"show","hidden":"hidden","invisible":"invisible","square":"square","square1":"square1","square2":"square2","square3":"square3","square4":"square4","square5-container":"square5-container","square5":"square5","square6":"square6"};
+	module.exports = {"todo-container":"todo-container","list-group-item":"list-group-item","add-todo-container":"add-todo-container","col-md-10":"col-md-10","col-md-2":"col-md-2","show":"show","hidden":"hidden","invisible":"invisible","square":"square","square1":"square1","square2":"square2","square3":"square3","square4":"square4","square5-container":"square5-container","square5":"square5","square6":"square6","header-content":"header-content","align-right":"align-right","beige-part-of-header-with-text":"beige-part-of-header-with-text","pale-blue-bar":"pale-blue-bar","right-and-pushed-down":"right-and-pushed-down","bio":"bio"};
 
 /***/ },
 /* 3 */,
@@ -19264,6 +19268,22 @@
 /***/ function(module, exports) {
 
 	module.exports = "<nav>\n  <a role=\"menuitem\" href=\"/pages/todo.html\">Todo Application</a>\n  <a role=\"menuitem\" href=\"/pages/project.html\">My Project</a>\n  <a role=\"menuitem\" href=\"/pages/funnySquares.html\">Funny Squares</a>\n  <a role=\"menuitem\" href=\"/pages/personalPortfolio.html\">Personal Portfolio</a>\n</nav>\n";
+
+/***/ },
+/* 56 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _underscore = __webpack_require__(7);
+	
+	var _underscore2 = _interopRequireDefault(_underscore);
+	
+	var $ = __webpack_require__(1);
+	window.jQuery = window.$ = $;
+	__webpack_require__(39);
 
 /***/ }
 /******/ ]);

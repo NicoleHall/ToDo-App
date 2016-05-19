@@ -4,6 +4,7 @@ import todos from 'pages/todo';
 import project from 'pages/project';
 import funnySquares from 'pages/funnySquares';
 import header from 'components/header';
+import personalPortfolio from 'pages/personalPortfolio';
 
 
 $(function(){

@@ -1,20 +1,44 @@
-@import url(// put goggle font url);
+@import url(https://fonts.googleapis.com/css?family=Abel);
+@import url(https://fonts.googleapis.com/css?family=Zeyada);
 
 .header-content {
   width: 100%;
   background: #FFFACD;
   position: fixed;
-  top: 0px;
+  margin-top: 0px;
+  padding: 0px;
+  position: relative;
+  display: block;
 }
 
-.header {
-  height: 50px;
-  background: #40E0D0;
-  border: 1px solid black;
-  width: 960px;
-  margin: 0px auto;
-}
-
-h1.align-right {
+.align-right {
   text-align: right;
+  padding-right: 25px;
+  height: 25px;
+}
+
+h1.beige-part-of-header-with-text {
+  font-family: 'Abel', sans-serif;
+  margin-top: 0px;
+}
+
+.pale-blue-bar {
+  position: relative;
+  background: #98F5FF;
+  height: 70px;
+}
+
+h1.right-and-pushed-down {
+  text-align: right;
+  margin-right: 25px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-family: 'Zeyada', cursive;
+}
+
+#bio {
+  height: 60px;
+  background-color: #f5f5f5;
+  position: fixed;
+  bottom: 10px;
 }
