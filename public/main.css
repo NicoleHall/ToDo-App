@@ -134,4 +134,9 @@ h1.right-and-pushed-down {
   bottom: 10px;
 }
 
+video {
+  width: 320px;
+  height: 240px;
+}
+
 /*# sourceMappingURL=main.css.map*/

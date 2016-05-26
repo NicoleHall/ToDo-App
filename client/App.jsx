@@ -5,6 +5,8 @@ import project from 'pages/project';
 import funnySquares from 'pages/funnySquares';
 import header from 'components/header';
 import personalPortfolio from 'pages/personalPortfolio';
+import dataVisualization from 'pages/dataVisualization';
+import horse from 'pages/horse';
 
 
 $(function(){
@@ -28,6 +30,12 @@ $(function(){
       break;
     case '/pages/funnySquares.html':
         funnySquares.init();
+        break;
+    case '/pages/dataVisualization.html':
+        dataVisualization.init();
+        break;
+    case '/pages/horse.html':
+        horse.init();
         break;
   }
 
