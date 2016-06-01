@@ -11,6 +11,6 @@ router.get('/*', function indexRouteHandler (req, res) {
   });
 });
 
-// TODO: API routes
+// todo: API routes
 
 module.exports = router;

@@ -9,26 +9,20 @@ h1 {
    }
 
 .todo-container {
-  width: 500px;
-  margin: 5px auto;
-  margin-top: 20px;
-
-}
-
-.list-group-item {
-  height: 45px;
+ width: 500px;
+ margin: 5px auto;
+ margin-top: 20px;
 }
 
 .add-todo-container {
-  margin-bottom: 8px;
-
+ margin-bottom: 10px;
 }
 
 .add-todo-container .col-md-10 {
-  padding-left: 0;
+ padding: 0;
 }
 
 .add-todo-container .col-md-2 {
-  padding-right: 0;
-  text-align: right;
+ padding-right: 0;
+ text-align: right;
 }

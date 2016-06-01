@@ -38,7 +38,12 @@ $(function(){
         horse.init();
         break;
   }
-
+//  fancy console message for developers
+console.log("==========================");
+console.log("==========================");
+console.log("==I am looking for a job==");
+console.log("==========================");
+console.log("==========================");
 });
 
 

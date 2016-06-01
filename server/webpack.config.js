@@ -45,12 +45,12 @@ var commonConfiguration = {
 
   module: {
     loaders: [
-      { 
+      {
         test: /\.js$|\.jsx$/,
         loader: "babel-loader?stage=0", // http://babeljs.io/docs/usage/experimental/
         include: path.join(__dirname, "..",  "client")
       },
-      { 
+      {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract('style', 'css?module&localIdentName=[local]' +
           '&sourceMap!sass?sourceMap&outputStyle=expanded' +
@@ -67,7 +67,7 @@ var commonConfiguration = {
       "client", "node_modules"
     ]
   },
-            
+
 };
 
 console.log('node environment: ' + process.env.NODE_ENV);
