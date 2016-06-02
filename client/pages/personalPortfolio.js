@@ -7,6 +7,6 @@ import _ from 'underscore';
 var app = {
   init: function(){},
   render: function(){}
-}
+};
 
 module.export = app;

@@ -8,8 +8,8 @@ require('bootstrap');
 import _ from 'underscore';
 import Handlebars from 'handlebars';
 import lscache from 'lscache';
-import rawTemplate from 'templates/todoItem.html'
-import modalTemplate from 'templates/todoModal.html'
+import rawTemplate from 'templates/todoItem.html';
+import modalTemplate from 'templates/todoModal.html';
 //  creating a jQuery module
 //  Data Model below
 var todos;
@@ -26,7 +26,7 @@ var todoSchema = function(todo){
     title: "",
     completed: false
   });
-}
+};
 
 //  Application controller aka the one main object that stores everything our app needs
 var template;
@@ -48,7 +48,7 @@ var app = {
     app.bindEvents();
   },
   compileTemplates: function(){
-    template = Handlebars.compile(rawTemplate)
+    template = Handlebars.compile(rawTemplate);
   },
   unbindEvents: function(){
     $('.list-group-item').off();
@@ -91,7 +91,7 @@ var app = {
       if (_.isString(newTodoTitle) && newTodoTitle.length > 2) {
         var newTodoObject = todoSchema({
           id: todos.length,
-          title: newTodoTitle
+          title: newTodoTitle,
           completed: false
         });
         todos.push(newTodoObject);
