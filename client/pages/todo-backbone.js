@@ -24,13 +24,33 @@ var todoControllerView;
 
 var TodoModel = Backbone.Model.extend({
   defaults: {
-
+    todos = []
+  },
+  todoSchema: {
+    id: 0,
+    title: "",
+    completed: false
   },
   fetch: function(){
-    //  gets the data
+    var data = lscache.get('todos');
+    data = this.applySchema(data);
+    this.set('todos', data); // this sets the value of todos (first argument) equal to the value of data (second argument)
   },
   save: function(){
-    //  saves the data
+    var data = this.get('todos');
+    data = this.applySchema(data);
+    lscache.set('todos', data);
+  },
+  applySchema: function(todos){
+    var data = todos;
+    var schema = this.todoSchema;
+    data = (_.isArray(todos)) ? data : [] ; // this is a short hand if statement.  if the value before the question mark, use the value before the colon, if false, use the value after the question mark
+    data = data.map(function(todo, index){
+      todo.id = index;
+      return _.defaults(todo, schema);
+    });
+
+    return data;
   }
 });
 var todoModel = new TodoModel();  // <-- this is now our model
