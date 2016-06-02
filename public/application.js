@@ -58,27 +58,27 @@
 	
 	var _pagesTodo2 = _interopRequireDefault(_pagesTodo);
 	
-	var _pagesProject = __webpack_require__(54);
+	var _pagesProject = __webpack_require__(52);
 	
 	var _pagesProject2 = _interopRequireDefault(_pagesProject);
 	
-	var _pagesFunnySquares = __webpack_require__(55);
+	var _pagesFunnySquares = __webpack_require__(53);
 	
 	var _pagesFunnySquares2 = _interopRequireDefault(_pagesFunnySquares);
 	
-	var _componentsHeader = __webpack_require__(56);
+	var _componentsHeader = __webpack_require__(54);
 	
 	var _componentsHeader2 = _interopRequireDefault(_componentsHeader);
 	
-	var _pagesPersonalPortfolio = __webpack_require__(58);
+	var _pagesPersonalPortfolio = __webpack_require__(56);
 	
 	var _pagesPersonalPortfolio2 = _interopRequireDefault(_pagesPersonalPortfolio);
 	
-	var _pagesDataVisualization = __webpack_require__(60);
+	var _pagesDataVisualization = __webpack_require__(58);
 	
 	var _pagesDataVisualization2 = _interopRequireDefault(_pagesDataVisualization);
 	
-	var _pagesHorse = __webpack_require__(62);
+	var _pagesHorse = __webpack_require__(60);
 	
 	var _pagesHorse2 = _interopRequireDefault(_pagesHorse);
 	
@@ -9999,38 +9999,26 @@
 	
 	var _lscache2 = _interopRequireDefault(_lscache);
 	
-	var _templatesTodoItemHtml = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"templates/todoItem.html\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _htmlTemplatesTodoItemHtml = __webpack_require__(62);
 	
-	var _templatesTodoItemHtml2 = _interopRequireDefault(_templatesTodoItemHtml);
-	
-	var _templatesTodoModalHtml = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"templates/todoModal.html\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-	
-	var _templatesTodoModalHtml2 = _interopRequireDefault(_templatesTodoModalHtml);
+	var _htmlTemplatesTodoItemHtml2 = _interopRequireDefault(_htmlTemplatesTodoItemHtml);
 	
 	//  creating a jQuery module
-	//  Data Model below
 	
+	//  data model aka database
 	var $ = __webpack_require__(1);
 	
 	//  legacy loading for bootstrap for es5
 	window.jQuery = window.$ = $;
-	__webpack_require__(41);
+	__webpack_require__(39);
 	
-	var todos;
-	var savedData = _lscache2['default'].get('todos');
+	var savedData = _lscache2['default'].get('toDos');
+	var toDos;
 	if (savedData === null) {
-	  todos = [];
+	  toDos = [];
 	} else {
-	  todos = savedData;
+	  toDos = savedData;
 	}
-	//  data model aka database
-	var todoSchema = function todoSchema(todo) {
-	  return _underscore2['default'].defaults(todo, {
-	    id: 0,
-	    title: "",
-	    completed: false
-	  });
-	};
 	
 	//  Application controller aka the one main object that stores everything our app needs
 	var template;
@@ -10041,33 +10029,34 @@
 	  },
 	  render: function render() {
 	    //  render the todos
-	    _lscache2['default'].set('todos', todos);
+	    _lscache2['default'].set('toDos', toDos);
 	    //  we are createting a keyvalue pair with lscache.set
-	    var todoHtml = _underscore2['default'].map(todos, function (todo) {
-	      return template(todo);
+	    var todoHtml = _underscore2['default'].map(toDos, function (toDo) {
+	      return template(toDo);
 	      // the return value ends up being HTML code
 	    });
 	    app.unbindEvents();
-	    $('ul.list-group').html(todoHtml.join(""));
+	    $('ul.list-group').html(todoHtml.join(''));
 	    app.bindEvents();
-	  },
-	  compileTemplates: function compileTemplates() {
-	    template = _handlebars2['default'].compile(_templatesTodoItemHtml2['default']);
 	  },
 	  unbindEvents: function unbindEvents() {
 	    $('.list-group-item').off();
 	    $('.add-todo-container button').off();
 	    $('input[type="checkbox"]').off();
-	    $('.list-group-item button').off();
-	    $('.title-edit input').off();
+	    $('.add-todo-container button').off();
+	  },
+	  compileTemplates: function compileTemplates() {
+	    //  template is a function that you pass the data object to.  You just have to know that....
+	
+	    template = _handlebars2['default'].compile(_htmlTemplatesTodoItemHtml2['default']);
 	  },
 	  bindEvents: function bindEvents() {
 	    app.bindHoverEvents();
 	    app.bindCheckboxEvents();
 	    app.bindAddTodoEvents();
 	    app.bindRemoveTodoEvent();
-	    app.bindEditTodoEvents();
 	  },
+	
 	  bindHoverEvents: function bindHoverEvents() {
 	    var $items = $('.list-group-item');
 	    $items.on('mouseover', function () {
@@ -10080,8 +10069,9 @@
 	  bindCheckboxEvents: function bindCheckboxEvents() {
 	    var $checkboxes = $('input[type="checkbox"]');
 	    $checkboxes.on('change', function () {
-	      var wasChecked = $(this).is(':checked');
-	      if (!wasChecked) {
+	      var isChecked = !$(this).is(':checked');
+	      if (isChecked) {
+	        //  if a checkbox is checked, remove the check
 	        $(this).parent().parent().removeClass('disabled');
 	      } else {
 	        $(this).parent().parent().addClass('disabled');
@@ -10089,42 +10079,21 @@
 	    });
 	  },
 	  bindAddTodoEvents: function bindAddTodoEvents() {
-	    var $container = $('.add-todo-container');
-	    $container.find('button').on('click', function () {
-	      var newTodoTitle = $container.find('input').val();
+	    $('.add-todo-container button').on('click', function () {
+	      var newTodoTitle = $('.add-todo-container input').val();
 	      if (_underscore2['default'].isString(newTodoTitle) && newTodoTitle.length > 2) {
-	        var newTodoObject = todoSchema({
-	          id: todos.length,
-	          title: newTodoTitle,
-	          completed: false
-	        });
-	        todos.push(newTodoObject);
-	        $container.find('input').val("");
+	        var newTodoObject = { title: newTodoTitle, completed: false };
+	        toDos.push(newTodoObject);
+	        $('.add-todo-container input').val('');
 	        app.render();
 	      }
 	    });
 	  },
-	  bindRemoveTodoEvents: function bindRemoveTodoEvents() {
+	  bindRemoveTodoEvent: function bindRemoveTodoEvent() {
 	    $('.list-group-item button').on('click', function () {
 	      var index = $(this).parent().parent().index();
-	      todos.splice(index, 1);
+	      toDos.splice(index, 1);
 	      app.render();
-	    });
-	  },
-	  bindEditTodoEvents: function bindEditTodoEvents() {
-	    $('.title').on('click', function () {
-	      var whichTodo = $(this).attr('data-id');
-	      whichTodo = parseInt(whichTodo, 10);
-	      var editTodo = todos[whichTodo];
-	      var compiledTemplate = _handlebars2['default'].compile(_templatesTodoModalHtml2['default']);
-	      var fullHtml = compiledTemplate(editTodo);
-	      $('body').append(fullHtml);
-	
-	      $('.modal').modal();
-	
-	      $('.close, .btn-default, .modal-backdrop').on('click', function () {
-	        $('.modal, .modal-backdrop').remove();
-	      });
 	    });
 	  }
 	};
@@ -16828,12 +16797,12 @@
 
 
 /***/ },
-/* 39 */,
-/* 40 */,
-/* 41 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// This file is autogenerated via the `commonjs` Grunt task. You can require() this file in a CommonJS environment.
+	__webpack_require__(40)
+	__webpack_require__(41)
 	__webpack_require__(42)
 	__webpack_require__(43)
 	__webpack_require__(44)
@@ -16844,11 +16813,9 @@
 	__webpack_require__(49)
 	__webpack_require__(50)
 	__webpack_require__(51)
-	__webpack_require__(52)
-	__webpack_require__(53)
 
 /***/ },
-/* 42 */
+/* 40 */
 /***/ function(module, exports) {
 
 	/* ========================================================================
@@ -16913,7 +16880,7 @@
 
 
 /***/ },
-/* 43 */
+/* 41 */
 /***/ function(module, exports) {
 
 	/* ========================================================================
@@ -17013,7 +16980,7 @@
 
 
 /***/ },
-/* 44 */
+/* 42 */
 /***/ function(module, exports) {
 
 	/* ========================================================================
@@ -17139,7 +17106,7 @@
 
 
 /***/ },
-/* 45 */
+/* 43 */
 /***/ function(module, exports) {
 
 	/* ========================================================================
@@ -17382,7 +17349,7 @@
 
 
 /***/ },
-/* 46 */
+/* 44 */
 /***/ function(module, exports) {
 
 	/* ========================================================================
@@ -17599,7 +17566,7 @@
 
 
 /***/ },
-/* 47 */
+/* 45 */
 /***/ function(module, exports) {
 
 	/* ========================================================================
@@ -17770,7 +17737,7 @@
 
 
 /***/ },
-/* 48 */
+/* 46 */
 /***/ function(module, exports) {
 
 	/* ========================================================================
@@ -18113,7 +18080,7 @@
 
 
 /***/ },
-/* 49 */
+/* 47 */
 /***/ function(module, exports) {
 
 	/* ========================================================================
@@ -18633,7 +18600,7 @@
 
 
 /***/ },
-/* 50 */
+/* 48 */
 /***/ function(module, exports) {
 
 	/* ========================================================================
@@ -18747,7 +18714,7 @@
 
 
 /***/ },
-/* 51 */
+/* 49 */
 /***/ function(module, exports) {
 
 	/* ========================================================================
@@ -18925,7 +18892,7 @@
 
 
 /***/ },
-/* 52 */
+/* 50 */
 /***/ function(module, exports) {
 
 	/* ========================================================================
@@ -19086,7 +19053,7 @@
 
 
 /***/ },
-/* 53 */
+/* 51 */
 /***/ function(module, exports) {
 
 	/* ========================================================================
@@ -19254,7 +19221,7 @@
 
 
 /***/ },
-/* 54 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19280,7 +19247,7 @@
 	module.exports = app;
 
 /***/ },
-/* 55 */
+/* 53 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -19294,7 +19261,7 @@
 	module.exports = app;
 
 /***/ },
-/* 56 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19305,12 +19272,11 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	//  import navbar from 'html!templates/navbar.html';
+	var _htmlTemplatesNavbarHtml = __webpack_require__(55);
 	
-	var _templatesNavbarHtml = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"templates/navbar.html\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _htmlTemplatesNavbarHtml2 = _interopRequireDefault(_htmlTemplatesNavbarHtml);
 	
-	var _templatesNavbarHtml2 = _interopRequireDefault(_templatesNavbarHtml);
-	
+	//  import navbar from 'templates/navbar.html';
 	//  use this line if the line with the bang breaks
 	
 	var app = {
@@ -19318,15 +19284,20 @@
 	    app.render();
 	  },
 	  render: function render() {
-	    (0, _jquery2['default'])('header').append(_templatesNavbarHtml2['default']);
+	    (0, _jquery2['default'])('header').append(_htmlTemplatesNavbarHtml2['default']);
 	  }
 	};
 	
 	module.exports = app;
 
 /***/ },
-/* 57 */,
-/* 58 */
+/* 55 */
+/***/ function(module, exports) {
+
+	module.exports = "<nav>\n  <a role=\"menuitem\" href=\"/pages/todo.html\">todo Application</a>\n  <a role=\"menuitem\" href=\"/pages/project.html\">My Project</a>\n  <a role=\"menuitem\" href=\"/pages/funnySquares.html\">Funny Squares</a>\n  <a role=\"menuitem\" href=\"/pages/personalPortfolio.html\">Personal Portfolio</a>\n  <a role=\"menuitem\" href=\"/pages/dataVisualization.html\">Data Visualization</a>\n  <a role=\"menuitem\" href=\"/pages/horse.html\">Horse</a>\n</nav>\n";
+
+/***/ },
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
@@ -19339,7 +19310,7 @@
 	
 	var $ = __webpack_require__(1);
 	window.jQuery = window.$ = $;
-	__webpack_require__(41);
+	__webpack_require__(39);
 	
 	var app = {
 	  init: function init() {},
@@ -19347,10 +19318,10 @@
 	};
 	
 	module['export'] = app;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(59)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(57)(module)))
 
 /***/ },
-/* 59 */
+/* 57 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -19366,18 +19337,18 @@
 
 
 /***/ },
-/* 60 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _d3 = __webpack_require__(61);
+	var _d3 = __webpack_require__(59);
 	
 	var _d32 = _interopRequireDefault(_d3);
 	
-	__webpack_require__(41);
+	__webpack_require__(39);
 	
 	var app = {
 	    init: function init() {
@@ -19452,7 +19423,7 @@
 	module.exports = app;
 
 /***/ },
-/* 61 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function() {
@@ -29011,14 +28982,14 @@
 	}();
 
 /***/ },
-/* 62 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _three = __webpack_require__(63);
+	var _three = __webpack_require__(61);
 	
 	var _three2 = _interopRequireDefault(_three);
 	
@@ -29112,7 +29083,7 @@
 	module.exports = app;
 
 /***/ },
-/* 63 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;// File:src/Three.js
@@ -70860,6 +70831,12 @@
 	};
 	
 
+
+/***/ },
+/* 62 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<li class=\"list-group-item row {{#if completed}}disabled{{/if}}\">\n  <div class=\"col-sm-1\">\n    <input type=\"checkbox\" {{#if completed}}checked{{/if}}>\n  </div>\n  <div class=\"col-sm-10 title\" data-id=\"{{id}}\">{{title}}</div>\n  <div class=\"col-sm-1\">\n    <button type=\"button\" class=\"close\" aria-label=\"Close\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n</li>\n";
 
 /***/ }
 /******/ ]);
