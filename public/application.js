@@ -111,7 +111,7 @@
 	      _pagesHorse2['default'].init();
 	      break;
 	  }
-	  //  fancy console message for developers
+	
 	  console.log("==========================");
 	  console.log("==========================");
 	  console.log("==I am looking for a job==");
@@ -10017,31 +10017,113 @@
 	var TodoModel;
 	var TodoControllerView;
 	var TodoView;
+	var TodoItemView;
 	
 	var todoModel;
 	var todoControllerView;
 	
 	//  Model
 	
-	var TodoModel = _backbone2['default'].Model.extend({
-	  defaults: {},
+	TodoModel = _backbone2['default'].Model.extend({
+	  defaults: {
+	    todos: []
+	  },
+	  todoSchema: {
+	    id: 0,
+	    title: "",
+	    completed: false
+	  },
 	  fetch: function fetch() {
-	    //  gets the data
+	    var data = _lscache2['default'].get('todos');
+	    data = this.applySchema(data);
+	    this.set('todos', data); // this sets the value of todos (first argument) equal to the value of data (second argument)
 	  },
 	  save: function save() {
-	    //  saves the data
+	    var data = this.get('todos');
+	    data = this.applySchema(data);
+	    _lscache2['default'].set('todos', data);
+	  },
+	  applySchema: function applySchema(todos) {
+	    var data = todos;
+	    var schema = this.todoSchema;
+	    data = _underscore2['default'].isArray(todos) ? data : []; // this is a short hand if statement.  if the value before the question mark, use the value before the colon, if false, use the value after the question mark
+	    data = data.map(function (todo, index) {
+	      todo.id = index;
+	      return _underscore2['default'].defaults(todo, schema);
+	    });
+	
+	    return data;
+	  },
+	  addItem: function addItem(newTitle) {
+	    var newTodo = { title: newTitle };
+	    var todos = this.get('todos');
+	    todos.push(newTodo);
+	    this.set('todos', todos);
+	    this.save();
+	  },
+	  removeItem: function removeItem(id) {
+	    //  actually do the removing from the data model
+	    var todos = this.get('todos');
+	    todos.splice(id, 1);
+	    this.save();
 	  }
 	});
 	var todoModel = new TodoModel(); // <-- this is now our model
 	
 	// View
 	var TodoControllerView = _backbone2['default'].View.extend({
-	  el: 'body',
+	  el: '.todo-container',
 	  model: todoModel,
-	  events: {},
-	  initialize: function initialize() {}, // here is where we are setting up listeners to our databas },
+	  events: {
+	    "click .btn-add": "addTodoItem"
+	  },
+	  initialize: function initialize() {
+	    this.model.fetch();
+	    this.listenTo(this.model, 'change', this.render);
+	  }, // here is where we are setting up listeners to our database
+	
 	  render: function render() {
-	    alert('backbone!');
+	    // render the todo items
+	    var todos = this.model.get('todos');
+	    var $ul = this.$el.find('ul');
+	    $ul = this.$el.find('ul'); // this clears out the ul before we append new items
+	    todos.map(function (todo) {
+	      var view = new TodoItemView(todo);
+	      $ul.append(view.$el);
+	    });
+	  },
+	  addTodoItem: function addTodoItem() {
+	    var $input = this.$el.find('.input-name');
+	    var newTitle = $input.val();
+	    if (newTitle === '') {
+	      return;
+	    }
+	    this.model.addItem(newTitle);
+	    $input.val(''); //sets input back to empty so the user can add more stuff
+	    this.render();
+	  },
+	  removeItem: function removeItem(id) {
+	    this.model.removeItem(id);
+	    this.render();
+	  }
+	});
+	TodoItemView = _backbone2['default'].View.extend({
+	  tagName: 'li', // el = <li></li> (which won't exist until render)
+	  className: '.list-group-item.row',
+	  events: {
+	    'click .close': 'removeItem'
+	  },
+	  template: _handlebars2['default'].compile(_htmlTemplatesTodoItemHtml2['default']),
+	  initialize: function initialize(todo) {
+	    this.data = todo;
+	    this.render(todo);
+	  },
+	  render: function render(todo) {
+	    this.$el.html(this.template(this.data));
+	  },
+	  removeItem: function removeItem() {
+	    // debugger;
+	    todoControllerView.removeItem(this.data.id);
 	  }
 	});
 	
@@ -18675,7 +18757,7 @@
 /* 40 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<li class=\"list-group-item row {{#if completed}}disabled{{/if}}\">\n  <div class=\"col-sm-1\">\n    <input type=\"checkbox\" {{#if completed}}checked{{/if}}>\n  </div>\n  <div class=\"col-sm-10 title\" data-id=\"{{id}}\">{{title}}</div>\n  <div class=\"col-sm-1\">\n    <button type=\"button\" class=\"close\" aria-label=\"Close\">\n      <span aria-hidden=\"true\">&times;</span>\n    </button>\n  </div>\n</li>\n";
+	module.exports = "<div class=\"col-sm-1\">\n  <input type=\"checkbox\">\n</div>\n<div class=\"col-sm-10 title\">{{title}}</div>\n<div class=\"col-sm-10 title-edit hidden\">\n  <input type=\"text\" class=\"form-control\" value=\"{{title}} data-id=\"{{id}}\"\">\n</div>\n<div class=\"col-sm-1\">\n  <button type=\"button\" class=\"close\" aria-label=\"Close\">\n    <span aria-hidden=\"true\">&times;</span>\n  </button>\n</div>\n";
 
 /***/ },
 /* 41 */
