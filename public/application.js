@@ -10087,6 +10087,7 @@
 	    var todos = this.model.get('todos');
 	    var $ul = this.$el.find('ul');
 	    $ul = this.$el.find('ul'); // this clears out the ul before we append new items
+	    $ul.html('');
 	    todos.map(function (todo) {
 	      var view = new TodoItemView(todo);
 	      $ul.append(view.$el);
