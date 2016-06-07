@@ -7,6 +7,7 @@ import header from 'components/header';
 import personalPortfolio from 'pages/personalPortfolio';
 import dataVisualization from 'pages/dataVisualization';
 import horse from 'pages/horse';
+import formsBackbone from 'pages/formsBackbone';
 
 
 
@@ -38,6 +39,10 @@ $(function(){
     case '/pages/horse.html':
         horse.init();
         break;
+    case '/pages/formsBackbone.html':
+        formsBackbone.render();
+        break;
+        default: break;
   }
 
 console.log("==========================");

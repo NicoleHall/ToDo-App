@@ -82,6 +82,10 @@
 	
 	var _pagesHorse2 = _interopRequireDefault(_pagesHorse);
 	
+	var _pagesFormsBackbone = __webpack_require__(64);
+	
+	var _pagesFormsBackbone2 = _interopRequireDefault(_pagesFormsBackbone);
+	
 	(0, _jquery2['default'])(function () {
 	  _componentsHeader2['default'].init();
 	
@@ -109,6 +113,11 @@
 	      break;
 	    case '/pages/horse.html':
 	      _pagesHorse2['default'].init();
+	      break;
+	    case '/pages/formsBackbone.html':
+	      _pagesFormsBackbone2['default'].render();
+	      break;
+	    default:
 	      break;
 	  }
 	
@@ -9974,7 +9983,7 @@
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"todo-container":"todo-container","add-todo-container":"add-todo-container","col-md-10":"col-md-10","col-md-2":"col-md-2","show":"show","hidden":"hidden","invisible":"invisible","square":"square","square1":"square1","square2":"square2","square3":"square3","square4":"square4","square5-container":"square5-container","square5":"square5","square6":"square6","header-content":"header-content","align-right":"align-right","beige-part-of-header-with-text":"beige-part-of-header-with-text","pale-blue-bar":"pale-blue-bar","right-and-pushed-down":"right-and-pushed-down","bio":"bio"};
+	module.exports = {"todo-container":"todo-container","add-todo-container":"add-todo-container","col-md-10":"col-md-10","col-md-2":"col-md-2","show":"show","hidden":"hidden","invisible":"invisible","square":"square","square1":"square1","square2":"square2","square3":"square3","square4":"square4","square5-container":"square5-container","square5":"square5","square6":"square6","header-content":"header-content","align-right":"align-right","beige-part-of-header-with-text":"beige-part-of-header-with-text","pale-blue-bar":"pale-blue-bar","right-and-pushed-down":"right-and-pushed-down","bio":"bio","blue-color":"blue-color","page-container":"page-container"};
 
 /***/ },
 /* 3 */,
@@ -21258,7 +21267,7 @@
 /* 57 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav>\n  <a role=\"menuitem\" href=\"/pages/todo.html\">todo Application</a>\n  <a role=\"menuitem\" href=\"/pages/project.html\">My Project</a>\n  <a role=\"menuitem\" href=\"/pages/funnySquares.html\">Funny Squares</a>\n  <a role=\"menuitem\" href=\"/pages/personalPortfolio.html\">Personal Portfolio</a>\n  <a role=\"menuitem\" href=\"/pages/dataVisualization.html\">Data Visualization</a>\n  <a role=\"menuitem\" href=\"/pages/horse.html\">Horse</a>\n</nav>\n";
+	module.exports = "<nav>\n  <a role=\"menuitem\" href=\"/pages/todo.html\">todo Application</a>\n  <a role=\"menuitem\" href=\"/pages/project.html\">My Project</a>\n  <a role=\"menuitem\" href=\"/pages/funnySquares.html\">Funny Squares</a>\n  <a role=\"menuitem\" href=\"/pages/personalPortfolio.html\">Personal Portfolio</a>\n  <a role=\"menuitem\" href=\"/pages/dataVisualization.html\">Data Visualization</a>\n  <a role=\"menuitem\" href=\"/pages/horse.html\">Horse</a>\n  <a role=\"menuitem\" href=\"/pages/formsBackbone.html\">Backbone Forms</a>\n</nav>\n";
 
 /***/ },
 /* 58 */
@@ -72795,6 +72804,142 @@
 	};
 	
 
+
+/***/ },
+/* 64 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _underscore = __webpack_require__(7);
+	
+	var _underscore2 = _interopRequireDefault(_underscore);
+	
+	var _backbone = __webpack_require__(8);
+	
+	var _backbone2 = _interopRequireDefault(_backbone);
+	
+	// you must do backbone after underscore
+	
+	var _handlebars = __webpack_require__(9);
+	
+	var _handlebars2 = _interopRequireDefault(_handlebars);
+	
+	var _lscache = __webpack_require__(39);
+	
+	var _lscache2 = _interopRequireDefault(_lscache);
+	
+	var _htmlTemplatesAccountListHtml = __webpack_require__(65);
+	
+	var _htmlTemplatesAccountListHtml2 = _interopRequireDefault(_htmlTemplatesAccountListHtml);
+	
+	var _htmlTemplatesCreateAccountHtml = __webpack_require__(66);
+	
+	var _htmlTemplatesCreateAccountHtml2 = _interopRequireDefault(_htmlTemplatesCreateAccountHtml);
+	
+	var $ = __webpack_require__(1);
+	
+	window.jQuery = window.$ = $;
+	__webpack_require__(41);
+	
+	var AccountModel;
+	var AccountControllerView;
+	var AccountListView;
+	var AccountCreateView;
+	//  this is the model
+	var accountModelConfigObject = {
+	  defaults: {
+	    accounts: [] // we are setting the accounts value using the this.get and this.set functions
+	  },
+	  save: function save() {
+	    var data = this.get('accounts');
+	    _lscache2['default'].set('accounts', data);
+	  },
+	  fetch: function fetch() {
+	    var data = _lscache2['default'].get('accounts');
+	    data = data || [];
+	    this.set('accounts', data);
+	  }
+	};
+	
+	var AccountModel = _backbone2['default'].Model.extend(accountModelConfigObject);
+	var accountModel = new AccountModel();
+	
+	//  controller
+	
+	var controllerConfigObject = {
+	  el: '.page-container',
+	  model: accountModel,
+	  event: {
+	    'click .btn-create': 'createNewAccount'
+	  },
+	  initialize: function initialize() {
+	    this.model.fetch();
+	  },
+	  render: function render() {
+	    var listView = new ListView();
+	    this.$el.find('.view-container').html(listView.$el.html());
+	  },
+	  createNewAccount: function createNewAccount() {
+	    var createView = new CreateView();
+	    this.$el.find('.view-container').html(createView.$el.html());
+	  }
+	};
+	var AccountControllerView = _backbone2['default'].View.extend(controllerConfigObject);
+	
+	// views
+	
+	var listViewConfig = {
+	  tagName: 'div',
+	  event: {},
+	  template: _handlebars2['default'].compile(_htmlTemplatesAccountListHtml2['default']),
+	  initialize: function initialize() {
+	    this.render();
+	  },
+	  render: function render() {
+	    var renderedTemplate = this.template({});
+	    this.$el.html(renderedTemplate);
+	  }
+	
+	};
+	var ListView = _backbone2['default'].View.extend(listViewConfig);
+	
+	var createViewConfig = {
+	  tagName: 'div',
+	  template: _handlebars2['default'].compile(_htmlTemplatesCreateAccountHtml2['default']),
+	  event: {
+	    'click .btn-done': 'submitForm'
+	  },
+	
+	  initialize: function initialize() {
+	    this.render();
+	  },
+	  render: function render() {
+	    var renderedTemplate = this.template({});
+	    this.$el.html(renderedTemplate);
+	  },
+	  submitForm: function submitForm() {
+	    accountControllerView.render();
+	  }
+	};
+	var CreateView = _backbone2['default'].View.extend(createViewConfig);
+	
+	var accountControllerView = new AccountControllerView();
+	module.exports = accountControllerView;
+
+/***/ },
+/* 65 */
+/***/ function(module, exports) {
+
+	module.exports = "<table class=\"table table-striped table-bordered table-hover\">\n  <tr>\n    <th>number</th>\n  </tr>\n  <tr>\n    <td>1</td>\n  </tr>\n  <tr>\n    <td>2</td>\n  </tr>\n</table>\n";
+
+/***/ },
+/* 66 */
+/***/ function(module, exports) {
+
+	module.exports = "<form>\n  <label for=\"name-field\">Name</label>\n  <input class=\"form-control\" type=\"text\" id=\"name-field\">\n\n</form>\n\n<button class=\"btn btn-primary btn-done\">Done</button>\n";
 
 /***/ }
 /******/ ]);
