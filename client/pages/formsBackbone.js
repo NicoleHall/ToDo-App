@@ -1,5 +1,6 @@
 var $ = require('jquery');
 
+
 window.jQuery = window.$ = $;
 require('bootstrap');
 
@@ -10,14 +11,11 @@ import lscache from 'lscache';
 import listTemplate from 'html!templates/accountList.html';
 import createTemplate from 'html!templates/createAccount.html';
 
-var AccountModel;
-var AccountControllerView;
-var AccountListView;
-var AccountCreateView;
-//  this is the model
-var accountModelConfigObject ={
+// Model
+
+var accountModelConfigObject = {
   defaults: {
-    accounts: []  // we are setting the accounts value using the this.get and this.set functions
+    accounts: []
   },
   save: function(){
     var data = this.get('accounts');
@@ -33,12 +31,13 @@ var accountModelConfigObject ={
 var AccountModel = Backbone.Model.extend(accountModelConfigObject);
 var accountModel = new AccountModel();
 
-//  controller
 
-var controllerConfigObject ={
+// Controller
+
+var controllerConfigObject = {
   el: '.page-container',
   model: accountModel,
-  event: {
+  events: {
     'click .btn-create': 'createNewAccount'
   },
   initialize: function(){
@@ -46,22 +45,23 @@ var controllerConfigObject ={
   },
   render: function(){
     var listView = new ListView();
-    this.$el.find('.view-container').html(listView.$el.html());
+    this.$el.find('.view-container').html(listView.$el);
   },
   createNewAccount: function(){
     var createView = new CreateView();
-    this.$el.find('.view-container').html(createView.$el.html());
+    this.$el.find('.view-container').html(createView.$el);
   }
 };
+
 var AccountControllerView = Backbone.View.extend(controllerConfigObject);
 
 
 
-// views
+// Views
 
 var listViewConfig = {
   tagName: 'div',
-  event: {},
+  events: {},
   template: Handlebars.compile(listTemplate),
   initialize: function(){
     this.render();
@@ -70,18 +70,15 @@ var listViewConfig = {
     var renderedTemplate = this.template({});
     this.$el.html(renderedTemplate);
   }
-
 };
 var ListView = Backbone.View.extend(listViewConfig);
-
 
 var createViewConfig = {
   tagName: 'div',
   template: Handlebars.compile(createTemplate),
-  event: {
+  events: {
     'click .btn-done': 'submitForm'
   },
-
   initialize: function(){
     this.render();
   },
@@ -96,4 +93,6 @@ var createViewConfig = {
 var CreateView = Backbone.View.extend(createViewConfig);
 
 var accountControllerView = new AccountControllerView();
+
+
 module.exports = accountControllerView;

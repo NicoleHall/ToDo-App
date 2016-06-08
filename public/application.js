@@ -72831,27 +72831,24 @@
 	
 	var _lscache2 = _interopRequireDefault(_lscache);
 	
-	var _htmlTemplatesAccountListHtml = __webpack_require__(65);
+	var _htmlTemplatesAccountListHtml = __webpack_require__(67);
 	
 	var _htmlTemplatesAccountListHtml2 = _interopRequireDefault(_htmlTemplatesAccountListHtml);
 	
-	var _htmlTemplatesCreateAccountHtml = __webpack_require__(66);
+	var _htmlTemplatesCreateAccountHtml = __webpack_require__(68);
 	
 	var _htmlTemplatesCreateAccountHtml2 = _interopRequireDefault(_htmlTemplatesCreateAccountHtml);
+	
+	// Model
 	
 	var $ = __webpack_require__(1);
 	
 	window.jQuery = window.$ = $;
 	__webpack_require__(41);
 	
-	var AccountModel;
-	var AccountControllerView;
-	var AccountListView;
-	var AccountCreateView;
-	//  this is the model
 	var accountModelConfigObject = {
 	  defaults: {
-	    accounts: [] // we are setting the accounts value using the this.get and this.set functions
+	    accounts: []
 	  },
 	  save: function save() {
 	    var data = this.get('accounts');
@@ -72867,12 +72864,12 @@
 	var AccountModel = _backbone2['default'].Model.extend(accountModelConfigObject);
 	var accountModel = new AccountModel();
 	
-	//  controller
+	// Controller
 	
 	var controllerConfigObject = {
 	  el: '.page-container',
 	  model: accountModel,
-	  event: {
+	  events: {
 	    'click .btn-create': 'createNewAccount'
 	  },
 	  initialize: function initialize() {
@@ -72880,20 +72877,21 @@
 	  },
 	  render: function render() {
 	    var listView = new ListView();
-	    this.$el.find('.view-container').html(listView.$el.html());
+	    this.$el.find('.view-container').html(listView.$el);
 	  },
 	  createNewAccount: function createNewAccount() {
 	    var createView = new CreateView();
-	    this.$el.find('.view-container').html(createView.$el.html());
+	    this.$el.find('.view-container').html(createView.$el);
 	  }
 	};
+	
 	var AccountControllerView = _backbone2['default'].View.extend(controllerConfigObject);
 	
-	// views
+	// Views
 	
 	var listViewConfig = {
 	  tagName: 'div',
-	  event: {},
+	  events: {},
 	  template: _handlebars2['default'].compile(_htmlTemplatesAccountListHtml2['default']),
 	  initialize: function initialize() {
 	    this.render();
@@ -72902,17 +72900,15 @@
 	    var renderedTemplate = this.template({});
 	    this.$el.html(renderedTemplate);
 	  }
-	
 	};
 	var ListView = _backbone2['default'].View.extend(listViewConfig);
 	
 	var createViewConfig = {
 	  tagName: 'div',
 	  template: _handlebars2['default'].compile(_htmlTemplatesCreateAccountHtml2['default']),
-	  event: {
+	  events: {
 	    'click .btn-done': 'submitForm'
 	  },
-	
 	  initialize: function initialize() {
 	    this.render();
 	  },
@@ -72927,16 +72923,19 @@
 	var CreateView = _backbone2['default'].View.extend(createViewConfig);
 	
 	var accountControllerView = new AccountControllerView();
+	
 	module.exports = accountControllerView;
 
 /***/ },
-/* 65 */
+/* 65 */,
+/* 66 */,
+/* 67 */
 /***/ function(module, exports) {
 
 	module.exports = "<table class=\"table table-striped table-bordered table-hover\">\n  <tr>\n    <th>number</th>\n  </tr>\n  <tr>\n    <td>1</td>\n  </tr>\n  <tr>\n    <td>2</td>\n  </tr>\n</table>\n";
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports) {
 
 	module.exports = "<form>\n  <label for=\"name-field\">Name</label>\n  <input class=\"form-control\" type=\"text\" id=\"name-field\">\n\n</form>\n\n<button class=\"btn btn-primary btn-done\">Done</button>\n";
