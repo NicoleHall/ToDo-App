@@ -121,11 +121,11 @@
 	      break;
 	  }
 	
-	  console.log("==========================");
-	  console.log("==========================");
-	  console.log("==I am looking for a job==");
-	  console.log("==========================");
-	  console.log("==========================");
+	  console.log('==========================');
+	  console.log('==========================');
+	  console.log('==I am looking for a job==');
+	  console.log('==========================');
+	  console.log('==========================');
 	});
 	
 	//  these import statements are how web pack does what it does
@@ -9983,7 +9983,7 @@
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"todo-container":"todo-container","add-todo-container":"add-todo-container","col-md-10":"col-md-10","col-md-2":"col-md-2","show":"show","hidden":"hidden","invisible":"invisible","square":"square","square1":"square1","square2":"square2","square3":"square3","square4":"square4","square5-container":"square5-container","square5":"square5","square6":"square6","header-content":"header-content","align-right":"align-right","beige-part-of-header-with-text":"beige-part-of-header-with-text","pale-blue-bar":"pale-blue-bar","right-and-pushed-down":"right-and-pushed-down","bio":"bio","blue-color":"blue-color","page-container":"page-container"};
+	module.exports = {"todo-container":"todo-container","add-todo-container":"add-todo-container","col-md-10":"col-md-10","col-md-2":"col-md-2","show":"show","hidden":"hidden","invisible":"invisible","square":"square","square1":"square1","square2":"square2","square3":"square3","square4":"square4","square5-container":"square5-container","square5":"square5","square6":"square6","header-content":"header-content","align-right":"align-right","beige-part-of-header-with-text":"beige-part-of-header-with-text","pale-blue-bar":"pale-blue-bar","right-and-pushed-down":"right-and-pushed-down","bio":"bio","carousel-home":"carousel-home","item":"item","active":"active","carousel":"carousel","carousel-inner":"carousel-inner","blue-color":"blue-color","page-container":"page-container"};
 
 /***/ },
 /* 3 */,
@@ -10039,7 +10039,7 @@
 	  },
 	  todoSchema: {
 	    id: 0,
-	    title: "",
+	    title: '',
 	    completed: false
 	  },
 	  fetch: function fetch() {
@@ -10084,7 +10084,7 @@
 	  el: '.todo-container',
 	  model: todoModel,
 	  events: {
-	    "click .btn-add": "addTodoItem"
+	    'click .btn-add': 'addTodoItem'
 	  },
 	  initialize: function initialize() {
 	    this.model.fetch();
@@ -21329,44 +21329,44 @@
 	    },
 	    InitChart: function InitChart() {
 	        var data = [{
-	            "sale": "202",
-	            "year": "2000"
+	            'sale': '202',
+	            'year': '2000'
 	        }, {
-	            "sale": "215",
-	            "year": "2002"
+	            'sale': '215',
+	            'year': '2002'
 	        }, {
-	            "sale": "179",
-	            "year": "2004"
+	            'sale': '179',
+	            'year': '2004'
 	        }, {
-	            "sale": "199",
-	            "year": "2006"
+	            'sale': '199',
+	            'year': '2006'
 	        }, {
-	            "sale": "134",
-	            "year": "2008"
+	            'sale': '134',
+	            'year': '2008'
 	        }, {
-	            "sale": "176",
-	            "year": "2010"
+	            'sale': '176',
+	            'year': '2010'
 	        }];
 	        var data2 = [{
-	            "sale": "152",
-	            "year": "2000"
+	            'sale': '152',
+	            'year': '2000'
 	        }, {
-	            "sale": "189",
-	            "year": "2002"
+	            'sale': '189',
+	            'year': '2002'
 	        }, {
-	            "sale": "179",
-	            "year": "2004"
+	            'sale': '179',
+	            'year': '2004'
 	        }, {
-	            "sale": "199",
-	            "year": "2006"
+	            'sale': '199',
+	            'year': '2006'
 	        }, {
-	            "sale": "134",
-	            "year": "2008"
+	            'sale': '134',
+	            'year': '2008'
 	        }, {
-	            "sale": "176",
-	            "year": "2010"
+	            'sale': '176',
+	            'year': '2010'
 	        }];
-	        var vis = _d32['default'].select("#visualisation"),
+	        var vis = _d32['default'].select('#visualisation'),
 	            WIDTH = 1000,
 	            HEIGHT = 500,
 	            MARGINS = {
@@ -21378,15 +21378,15 @@
 	            xScale = _d32['default'].scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]).domain([2000, 2010]),
 	            yScale = _d32['default'].scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([134, 215]),
 	            xAxis = _d32['default'].svg.axis().scale(xScale),
-	            yAxis = _d32['default'].svg.axis().scale(yScale).orient("left");
+	            yAxis = _d32['default'].svg.axis().scale(yScale).orient('left');
 	
-	        vis.append("svg:g").attr("class", "x axis").attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")").call(xAxis);
-	        vis.append("svg:g").attr("class", "y axis").attr("transform", "translate(" + MARGINS.left + ",0)").call(yAxis);
+	        vis.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call(xAxis);
+	        vis.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call(yAxis);
 	        var lineGen = _d32['default'].svg.line().x(function (d) {
 	            return xScale(d.year);
 	        }).y(function (d) {
 	            return yScale(d.sale);
-	        }).interpolate("basis");
+	        }).interpolate('basis');
 	        vis.append('svg:path').attr('d', lineGen(data)).attr('stroke', 'green').attr('stroke-width', 2).attr('fill', 'none');
 	        vis.append('svg:path').attr('d', lineGen(data2)).attr('stroke', 'blue').attr('stroke-width', 2).attr('fill', 'none');
 	    }

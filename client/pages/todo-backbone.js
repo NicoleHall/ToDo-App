@@ -28,7 +28,7 @@ TodoModel = Backbone.Model.extend({
   },
   todoSchema: {
     id: 0,
-    title: "",
+    title: '',
     completed: false
   },
   fetch: function(){
@@ -73,7 +73,7 @@ var TodoControllerView = Backbone.View.extend({
   el: '.todo-container',
   model: todoModel,
   events: {
-    "click .btn-add": "addTodoItem"
+    'click .btn-add': 'addTodoItem'
   },
   initialize: function(){
     this.model.fetch();

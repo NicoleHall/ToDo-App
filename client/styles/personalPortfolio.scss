@@ -45,3 +45,24 @@ h1.right-and-pushed-down {
   position: fixed;
   bottom: 0px;
 }
+
+#carousel-home {
+  position: fixed;
+  height: 500px;
+}
+
+.item.active {
+  position: fixed;
+  height: 500px;
+  width: 100%;
+}
+
+.item {
+  position: fixed;
+  height: 500px;
+  width: 100%;
+}
+
+html,body{width: 100%;}
+.carousel,.item,.active{width: 100%;}
+.carousel-inner{width: 100%;}

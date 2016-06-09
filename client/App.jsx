@@ -45,11 +45,11 @@ $(function(){
         default: break;
   }
 
-console.log("==========================");
-console.log("==========================");
-console.log("==I am looking for a job==");
-console.log("==========================");
-console.log("==========================");
+console.log('==========================');
+console.log('==========================');
+console.log('==I am looking for a job==');
+console.log('==========================');
+console.log('==========================');
 });
 
 
