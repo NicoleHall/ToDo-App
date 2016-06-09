@@ -64,11 +64,18 @@ TodoModel = Backbone.Model.extend({
     var todos = this.get('todos');
     todos.splice(id, 1);
     this.save();
+  },
+  itemCompleted: function(id, isCompleted){
+    var todos = this.get('todos');
+    var item = _.findWhere(todos, { id: id });
+    item.completed = !isCompleted;
+    this.set('todos', todos);
+    this.save();
   }
 });
 var todoModel = new TodoModel();  // <-- this is now our model
 
-// View
+// Controller
 var TodoControllerView = Backbone.View.extend({
   el: '.todo-container',
   model: todoModel,
@@ -102,13 +109,20 @@ render: function(){
   removeItem: function(id){
     this.model.removeItem(id);
     this.render();
+  },
+  itemCompleted: function(id, isCompleted){
+    this.model.itemCompleted(id, isCompleted);
+    this.render();
   }
 });
+
+// view
 TodoItemView = Backbone.View.extend({
   tagName: 'li', // el = <li></li> (which won't exist until render)
-  className: '.list-group-item.row',
+  className: '.list-group-item row',
   events: {
-    'click .close': 'removeItem'
+    'click .close': 'removeItem',
+    'change .completed-checkbox': 'completedClicked'
   },
   template: Handlebars.compile(todoItemTemplate),
   initialize: function(todo){
@@ -117,10 +131,14 @@ TodoItemView = Backbone.View.extend({
   },
   render: function(todo){
     this.$el.html(this.template(this.data));
+    this.$el.toggleClass('disabled', this.data.completed);
   },
   removeItem: function(){
-   // debugger;
     todoControllerView.removeItem(this.data.id);
+  },
+  completedClicked: function(event){
+    var isChecked = !$(event.currentTarget).is(':checked');
+    todoControllerView.itemCompleted(this.data.id, isChecked);
   }
 });
 

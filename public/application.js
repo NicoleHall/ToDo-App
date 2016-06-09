@@ -10075,11 +10075,18 @@
 	    var todos = this.get('todos');
 	    todos.splice(id, 1);
 	    this.save();
+	  },
+	  itemCompleted: function itemCompleted(id, isCompleted) {
+	    var todos = this.get('todos');
+	    var item = _underscore2['default'].findWhere(todos, { id: id });
+	    item.completed = !isCompleted;
+	    this.set('todos', todos);
+	    this.save();
 	  }
 	});
 	var todoModel = new TodoModel(); // <-- this is now our model
 	
-	// View
+	// Controller
 	var TodoControllerView = _backbone2['default'].View.extend({
 	  el: '.todo-container',
 	  model: todoModel,
@@ -10115,13 +10122,20 @@
 	  removeItem: function removeItem(id) {
 	    this.model.removeItem(id);
 	    this.render();
+	  },
+	  itemCompleted: function itemCompleted(id, isCompleted) {
+	    this.model.itemCompleted(id, isCompleted);
+	    this.render();
 	  }
 	});
+	
+	// view
 	TodoItemView = _backbone2['default'].View.extend({
 	  tagName: 'li', // el = <li></li> (which won't exist until render)
-	  className: '.list-group-item.row',
+	  className: '.list-group-item row',
 	  events: {
-	    'click .close': 'removeItem'
+	    'click .close': 'removeItem',
+	    'change .completed-checkbox': 'completedClicked'
 	  },
 	  template: _handlebars2['default'].compile(_htmlTemplatesTodoItemHtml2['default']),
 	  initialize: function initialize(todo) {
@@ -10130,10 +10144,14 @@
 	  },
 	  render: function render(todo) {
 	    this.$el.html(this.template(this.data));
+	    this.$el.toggleClass('disabled', this.data.completed);
 	  },
 	  removeItem: function removeItem() {
-	    // debugger;
 	    todoControllerView.removeItem(this.data.id);
+	  },
+	  completedClicked: function completedClicked(event) {
+	    var isChecked = !$(event.currentTarget).is(':checked');
+	    todoControllerView.itemCompleted(this.data.id, isChecked);
 	  }
 	});
 	
@@ -18767,7 +18785,7 @@
 /* 40 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-1\">\n  <input type=\"checkbox\">\n</div>\n<div class=\"col-sm-10 title\">{{title}}</div>\n<div class=\"col-sm-10 title-edit hidden\">\n  <input type=\"text\" class=\"form-control\" value=\"{{title}} data-id=\"{{id}}\"\">\n</div>\n<div class=\"col-sm-1\">\n  <button type=\"button\" class=\"close\" aria-label=\"Close\">\n    <span aria-hidden=\"true\">&times;</span>\n  </button>\n</div>\n";
+	module.exports = "<div class=\"col-sm-1\">\n  <input class=\"completed-checkbox\" type=\"checkbox\" {{#if completed}}checked{{/if}}>\n</div>\n<div class=\"col-sm-10 title\">{{title}}</div>\n<div class=\"col-sm-10 title-edit hidden\">\n  <input type=\"text\" class=\"form-control\" value=\"{{title}} data-id=\"{{id}}\"\">\n</div>\n<div class=\"col-sm-1\">\n  <button type=\"button\" class=\"close\" aria-label=\"Close\">\n    <span aria-hidden=\"true\">&times;</span>\n  </button>\n</div>\n";
 
 /***/ },
 /* 41 */
