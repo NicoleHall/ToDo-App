@@ -72831,11 +72831,11 @@
 	
 	var _lscache2 = _interopRequireDefault(_lscache);
 	
-	var _htmlTemplatesAccountListHtml = __webpack_require__(67);
+	var _htmlTemplatesAccountListHtml = __webpack_require__(65);
 	
 	var _htmlTemplatesAccountListHtml2 = _interopRequireDefault(_htmlTemplatesAccountListHtml);
 	
-	var _htmlTemplatesCreateAccountHtml = __webpack_require__(68);
+	var _htmlTemplatesCreateAccountHtml = __webpack_require__(66);
 	
 	var _htmlTemplatesCreateAccountHtml2 = _interopRequireDefault(_htmlTemplatesCreateAccountHtml);
 	
@@ -72927,15 +72927,13 @@
 	module.exports = accountControllerView;
 
 /***/ },
-/* 65 */,
-/* 66 */,
-/* 67 */
+/* 65 */
 /***/ function(module, exports) {
 
 	module.exports = "<table class=\"table table-striped table-bordered table-hover\">\n  <tr>\n    <th>number</th>\n  </tr>\n  <tr>\n    <td>1</td>\n  </tr>\n  <tr>\n    <td>2</td>\n  </tr>\n</table>\n";
 
 /***/ },
-/* 68 */
+/* 66 */
 /***/ function(module, exports) {
 
 	module.exports = "<form>\n  <label for=\"name-field\">Name</label>\n  <input class=\"form-control\" type=\"text\" id=\"name-field\">\n\n</form>\n\n<button class=\"btn btn-primary btn-done\">Done</button>\n";
