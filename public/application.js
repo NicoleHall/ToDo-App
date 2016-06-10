@@ -10016,10 +10016,11 @@
 	
 	var _htmlTemplatesTodoItemHtml2 = _interopRequireDefault(_htmlTemplatesTodoItemHtml);
 	
-	//  Backbone Todo app
+	// Backbone Todo App
 	
 	var $ = __webpack_require__(1);
 	
+	// legacy loading for bootstrap
 	window.jQuery = window.$ = $;
 	__webpack_require__(41);
 	
@@ -10031,7 +10032,7 @@
 	var todoModel;
 	var todoControllerView;
 	
-	//  Model
+	// Model
 	
 	TodoModel = _backbone2['default'].Model.extend({
 	  defaults: {
@@ -10045,7 +10046,7 @@
 	  fetch: function fetch() {
 	    var data = _lscache2['default'].get('todos');
 	    data = this.applySchema(data);
-	    this.set('todos', data); // this sets the value of todos (first argument) equal to the value of data (second argument)
+	    this.set('todos', data);
 	  },
 	  save: function save() {
 	    var data = this.get('todos');
@@ -10055,12 +10056,11 @@
 	  applySchema: function applySchema(todos) {
 	    var data = todos;
 	    var schema = this.todoSchema;
-	    data = _underscore2['default'].isArray(todos) ? data : []; // this is a short hand if statement.  if the value before the question mark, use the value before the colon, if false, use the value after the question mark
+	    data = _underscore2['default'].isArray(todos) ? data : [];
 	    data = data.map(function (todo, index) {
 	      todo.id = index;
 	      return _underscore2['default'].defaults(todo, schema);
 	    });
-	
 	    return data;
 	  },
 	  addItem: function addItem(newTitle) {
@@ -10071,7 +10071,7 @@
 	    this.save();
 	  },
 	  removeItem: function removeItem(id) {
-	    //  actually do the removing from the data model
+	    // finally actually remove the damn thing
 	    var todos = this.get('todos');
 	    todos.splice(id, 1);
 	    this.save();
@@ -10079,15 +10079,17 @@
 	  itemCompleted: function itemCompleted(id, isCompleted) {
 	    var todos = this.get('todos');
 	    var item = _underscore2['default'].findWhere(todos, { id: id });
-	    item.completed = !isCompleted;
+	    item.completed = isCompleted;
 	    this.set('todos', todos);
 	    this.save();
 	  }
 	});
-	var todoModel = new TodoModel(); // <-- this is now our model
 	
-	// Controller
-	var TodoControllerView = _backbone2['default'].View.extend({
+	todoModel = new TodoModel();
+	
+	// View
+	
+	TodoControllerView = _backbone2['default'].View.extend({
 	  el: '.todo-container',
 	  model: todoModel,
 	  events: {
@@ -10095,14 +10097,11 @@
 	  },
 	  initialize: function initialize() {
 	    this.model.fetch();
-	    this.listenTo(this.model, 'change', this.render);
-	  }, // here is where we are setting up listeners to our database
-	
+	  },
 	  render: function render() {
 	    // render the todo items
 	    var todos = this.model.get('todos');
 	    var $ul = this.$el.find('ul');
-	    $ul = this.$el.find('ul'); // this clears out the ul before we append new items
 	    $ul.html('');
 	    todos.map(function (todo) {
 	      var view = new TodoItemView(todo);
@@ -10116,7 +10115,7 @@
 	      return;
 	    }
 	    this.model.addItem(newTitle);
-	    $input.val(''); //sets input back to empty so the user can add more stuff
+	    $input.val('');
 	    this.render();
 	  },
 	  removeItem: function removeItem(id) {
@@ -10129,10 +10128,9 @@
 	  }
 	});
 	
-	// view
 	TodoItemView = _backbone2['default'].View.extend({
-	  tagName: 'li', // el = <li></li> (which won't exist until render)
-	  className: '.list-group-item row',
+	  tagName: 'li', // el = <li class="list-group-item"></li>
+	  className: 'list-group-item row',
 	  events: {
 	    'click .close': 'removeItem',
 	    'change .completed-checkbox': 'completedClicked'
@@ -10140,9 +10138,9 @@
 	  template: _handlebars2['default'].compile(_htmlTemplatesTodoItemHtml2['default']),
 	  initialize: function initialize(todo) {
 	    this.data = todo;
-	    this.render(todo);
+	    this.render();
 	  },
-	  render: function render(todo) {
+	  render: function render() {
 	    this.$el.html(this.template(this.data));
 	    this.$el.toggleClass('disabled', this.data.completed);
 	  },
@@ -10150,12 +10148,13 @@
 	    todoControllerView.removeItem(this.data.id);
 	  },
 	  completedClicked: function completedClicked(event) {
-	    var isChecked = !$(event.currentTarget).is(':checked');
+	    var isChecked = $(event.currentTarget).is(':checked');
 	    todoControllerView.itemCompleted(this.data.id, isChecked);
 	  }
 	});
 	
-	var todoControllerView = new TodoControllerView();
+	todoControllerView = new TodoControllerView();
+	
 	module.exports = todoControllerView;
 
 /***/ },
@@ -18785,7 +18784,7 @@
 /* 40 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-1\">\n  <input class=\"completed-checkbox\" type=\"checkbox\" {{#if completed}}checked{{/if}}>\n</div>\n<div class=\"col-sm-10 title\">{{title}}</div>\n<div class=\"col-sm-10 title-edit hidden\">\n  <input type=\"text\" class=\"form-control\" value=\"{{title}} data-id=\"{{id}}\"\">\n</div>\n<div class=\"col-sm-1\">\n  <button type=\"button\" class=\"close\" aria-label=\"Close\">\n    <span aria-hidden=\"true\">&times;</span>\n  </button>\n</div>\n";
+	module.exports = "<div class=\"col-sm-1\">\n  <input class=\"completed-checkbox\" type=\"checkbox\" {{#if completed}}checked{{/if}}>\n</div>\n<div class=\"col-sm-10 title\">{{title}}</div>\n<div class=\"col-sm-10 title-edit hidden\">\n  <input type=\"text\" class=\"form-control\" value=\"{{title}}\" data-id=\"{{id}}\">\n</div>\n<div class=\"col-sm-1\">\n  <button type=\"button\" class=\"close\" aria-label=\"Close\">\n    <span aria-hidden=\"true\">&times;</span>\n  </button>\n</div>\n";
 
 /***/ },
 /* 41 */
@@ -72954,7 +72953,7 @@
 /* 66 */
 /***/ function(module, exports) {
 
-	module.exports = "<form>\n  <label for=\"name-field\">Name</label>\n  <input class=\"form-control\" type=\"text\" id=\"name-field\">\n\n</form>\n\n<button class=\"btn btn-primary btn-done\">Done</button>\n";
+	module.exports = "\n<form>\n\t<label for=\"name-field\">Name</label>\n\t<input class=\"form-control\" type=\"text\" id=\"name-field\">\n</form>\n<button class=\"btn btn-primary btn-done\">done</button>\n";
 
 /***/ }
 /******/ ]);
