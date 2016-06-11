@@ -131,8 +131,8 @@ TodoItemView = Backbone.View.extend({
   events: {
     'click .close': 'removeItem',
     'change .completed-checkbox': 'completedClicked',
-    'click .title' : 'titleClicked',
-    'keypress .title-edit-input' : 'titleEditConfirm'
+    'click .title': 'titleClicked',
+    'keypress .title-edit-input': 'titleEditConfirm'
   },
   template: Handlebars.compile(todoItemTemplate),
   initialize: function(todo){
@@ -156,6 +156,7 @@ TodoItemView = Backbone.View.extend({
   titleClicked: function(){
     this.$title.addClass('hidden');
     this.$titleEdit.removeClass('hidden');
+    this.$titleInput.focus();
   },
   titleEditConfirm: function(event){
     if (event.which === 13) {

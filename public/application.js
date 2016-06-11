@@ -10169,6 +10169,7 @@
 	  titleClicked: function titleClicked() {
 	    this.$title.addClass('hidden');
 	    this.$titleEdit.removeClass('hidden');
+	    this.$titleInput.focus();
 	  },
 	  titleEditConfirm: function titleEditConfirm(event) {
 	    if (event.which === 13) {
