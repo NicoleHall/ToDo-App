@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import 'styles/main.scss';
-import todos from 'pages/todo-backbone';
+import TodoControllerView from 'pages/todo/todoController';
 import project from 'pages/project';
 import funnySquares from 'pages/funnySquares';
 import header from 'components/header';
@@ -24,7 +24,7 @@ $(function(){
       personalPortfolio.init();
       break;
     case '/pages/todo.html':
-      todos.render();
+      var todoControllerView = new TodoControllerView();
       break;
     case '/pages/project.html':
       project.init();
