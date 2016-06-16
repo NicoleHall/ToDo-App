@@ -2,14 +2,13 @@ import $ from 'jquery';
 import 'styles/main.scss';
 import TodoControllerView from 'pages/todo/todoController';
 import project from 'pages/project';
+import photoSearch from 'pages/photoSearch';
 import funnySquares from 'pages/funnySquares';
 import header from 'components/header';
 import personalPortfolio from 'pages/personalPortfolio';
 import dataVisualization from 'pages/dataVisualization';
 import horse from 'pages/horse';
 import formsBackbone from 'pages/formsBackbone';
-
-
 
 $(function(){
   header.init();
@@ -30,6 +29,9 @@ $(function(){
       project.init();
       //  init the project javascript
       break;
+    case '/pages/photoSearch.html':
+        photoSearch.init();
+        break;
     case '/pages/funnySquares.html':
         funnySquares.init();
         break;

@@ -62,27 +62,31 @@
 	
 	var _pagesProject2 = _interopRequireDefault(_pagesProject);
 	
-	var _pagesFunnySquares = __webpack_require__(57);
+	var _pagesPhotoSearch = __webpack_require__(57);
+	
+	var _pagesPhotoSearch2 = _interopRequireDefault(_pagesPhotoSearch);
+	
+	var _pagesFunnySquares = __webpack_require__(59);
 	
 	var _pagesFunnySquares2 = _interopRequireDefault(_pagesFunnySquares);
 	
-	var _componentsHeader = __webpack_require__(58);
+	var _componentsHeader = __webpack_require__(60);
 	
 	var _componentsHeader2 = _interopRequireDefault(_componentsHeader);
 	
-	var _pagesPersonalPortfolio = __webpack_require__(60);
+	var _pagesPersonalPortfolio = __webpack_require__(62);
 	
 	var _pagesPersonalPortfolio2 = _interopRequireDefault(_pagesPersonalPortfolio);
 	
-	var _pagesDataVisualization = __webpack_require__(62);
+	var _pagesDataVisualization = __webpack_require__(64);
 	
 	var _pagesDataVisualization2 = _interopRequireDefault(_pagesDataVisualization);
 	
-	var _pagesHorse = __webpack_require__(64);
+	var _pagesHorse = __webpack_require__(66);
 	
 	var _pagesHorse2 = _interopRequireDefault(_pagesHorse);
 	
-	var _pagesFormsBackbone = __webpack_require__(66);
+	var _pagesFormsBackbone = __webpack_require__(68);
 	
 	var _pagesFormsBackbone2 = _interopRequireDefault(_pagesFormsBackbone);
 	
@@ -104,6 +108,9 @@
 	    case '/pages/project.html':
 	      _pagesProject2['default'].init();
 	      //  init the project javascript
+	      break;
+	    case '/pages/photoSearch.html':
+	      _pagesPhotoSearch2['default'].init();
 	      break;
 	    case '/pages/funnySquares.html':
 	      _pagesFunnySquares2['default'].init();
@@ -9983,7 +9990,7 @@
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"todo-container":"todo-container","add-todo-container":"add-todo-container","col-md-10":"col-md-10","col-md-2":"col-md-2","show":"show","hidden":"hidden","invisible":"invisible","square":"square","square1":"square1","square2":"square2","square3":"square3","square4":"square4","square5-container":"square5-container","square5":"square5","square6":"square6","header-content":"header-content","align-right":"align-right","beige-part-of-header-with-text":"beige-part-of-header-with-text","pale-blue-bar":"pale-blue-bar","right-and-pushed-down":"right-and-pushed-down","bio":"bio","carousel-home":"carousel-home","item":"item","active":"active","carousel":"carousel","carousel-inner":"carousel-inner","blue-color":"blue-color","page-container":"page-container"};
+	module.exports = {"todo-container":"todo-container","add-todo-container":"add-todo-container","col-md-10":"col-md-10","col-md-2":"col-md-2","show":"show","hidden":"hidden","invisible":"invisible","square":"square","square1":"square1","square2":"square2","square3":"square3","square4":"square4","square5-container":"square5-container","square5":"square5","square6":"square6","header-content":"header-content","align-right":"align-right","beige-part-of-header-with-text":"beige-part-of-header-with-text","pale-blue-bar":"pale-blue-bar","right-and-pushed-down":"right-and-pushed-down","bio":"bio","carousel-home":"carousel-home","item":"item","active":"active","carousel":"carousel","carousel-inner":"carousel-inner","blue-color":"blue-color","page-container":"page-container","search-container":"search-container","photo":"photo"};
 
 /***/ },
 /* 3 */,
@@ -21316,6 +21323,86 @@
 
 /***/ },
 /* 57 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _jquery = __webpack_require__(1);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _handlebars = __webpack_require__(9);
+	
+	var _handlebars2 = _interopRequireDefault(_handlebars);
+	
+	var _htmlTemplatesFlickrImageHtml = __webpack_require__(58);
+	
+	var _htmlTemplatesFlickrImageHtml2 = _interopRequireDefault(_htmlTemplatesFlickrImageHtml);
+	
+	var _underscore = __webpack_require__(7);
+	
+	var _underscore2 = _interopRequireDefault(_underscore);
+	
+	var compiledTemplate = _handlebars2['default'].compile(_htmlTemplatesFlickrImageHtml2['default']);
+	var app = {
+	  init: function init() {
+	    app.render();
+	  },
+	  render: function render() {
+	    app.$input = (0, _jquery2['default'])('.search-container input');
+	    app.bindEvents();
+	  },
+	  bindEvents: function bindEvents() {
+	    app.$input.on('keypress', app.searchKeyPress);
+	  },
+	  searchKeyPress: function searchKeyPress(event) {
+	    if (event.which === 13) {
+	      app.doSearch();
+	    }
+	  },
+	  doSearch: function doSearch() {
+	    var phrase = app.$input.val();
+	    _jquery2['default'].ajax({
+	      url: 'https://api.flickr.com/services/rest',
+	      method: 'GET',
+	      data: {
+	        text: phrase,
+	        method: 'flickr.photos.search',
+	        api_key: 'd8a25eb507471e8fa1ed88bc97ed1cce',
+	        format: 'json',
+	        per_page: 40
+	      },
+	      complete: function complete(response) {
+	        var text = response.responseText;
+	        text = text.slice(14, text.length - 1);
+	        var data = JSON.parse(text);
+	        app.renderResults(data);
+	      }
+	    });
+	  },
+	  renderResults: function renderResults(data) {
+	    var html = '';
+	    var myPhotos = data.photos.photo;
+	    myPhotos.forEach(function (item) {
+	      html = html + compiledTemplate(item);
+	    }), (0, _jquery2['default'])('.search-results').html(html);
+	    //  pass data to the templetate
+	    // append result to the .search-result div
+	  }
+	};
+	
+	module.exports = app;
+
+/***/ },
+/* 58 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"photo\">\n  <img src=\"https://farm{{farm}}.static.flickr.com/{{server}}/{{id}}_{{secret}}_b.jpg\">\n</div>\n";
+
+/***/ },
+/* 59 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21329,7 +21416,7 @@
 	module.exports = app;
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21340,7 +21427,7 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	var _htmlTemplatesNavbarHtml = __webpack_require__(59);
+	var _htmlTemplatesNavbarHtml = __webpack_require__(61);
 	
 	var _htmlTemplatesNavbarHtml2 = _interopRequireDefault(_htmlTemplatesNavbarHtml);
 	
@@ -21359,13 +21446,13 @@
 	module.exports = app;
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav>\n  <a role=\"menuitem\" href=\"/pages/todo.html\">todo Application</a>\n  <a role=\"menuitem\" href=\"/pages/project.html\">My Project</a>\n  <a role=\"menuitem\" href=\"/pages/funnySquares.html\">Funny Squares</a>\n  <a role=\"menuitem\" href=\"/pages/personalPortfolio.html\">Personal Portfolio</a>\n  <a role=\"menuitem\" href=\"/pages/dataVisualization.html\">Data Visualization</a>\n  <a role=\"menuitem\" href=\"/pages/horse.html\">Horse</a>\n  <a role=\"menuitem\" href=\"/pages/formsBackbone.html\">Backbone Forms</a>\n</nav>\n";
+	module.exports = "<nav>\n  <a role=\"menuitem\" href=\"/pages/todo.html\">todo Application</a><br>\n  <a role=\"menuitem\" href=\"/pages/project.html\">My Project</a><br>\n  <a role=\"menuitem\" href=\"/pages/funnySquares.html\">Funny Squares</a><br>\n  <a role=\"menuitem\" href=\"/pages/personalPortfolio.html\">Personal Portfolio</a><br>\n  <a role=\"menuitem\" href=\"/pages/dataVisualization.html\">Data Visualization</a><br>\n  <a role=\"menuitem\" href=\"/pages/horse.html\">Horse</a><br>\n  <a role=\"menuitem\" href=\"/pages/formsBackbone.html\">Backbone Forms</a><br>\n  <a role=\"menuitem\" href=\"/pages/photoSearch.html\">Photo Search</a><br>\n</nav>\n";
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
@@ -21386,10 +21473,10 @@
 	};
 	
 	module['export'] = app;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(61)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(63)(module)))
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -21405,14 +21492,14 @@
 
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _d3 = __webpack_require__(63);
+	var _d3 = __webpack_require__(65);
 	
 	var _d32 = _interopRequireDefault(_d3);
 	
@@ -21491,7 +21578,7 @@
 	module.exports = app;
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function() {
@@ -31050,14 +31137,14 @@
 	}();
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _three = __webpack_require__(65);
+	var _three = __webpack_require__(67);
 	
 	var _three2 = _interopRequireDefault(_three);
 	
@@ -31151,7 +31238,7 @@
 	module.exports = app;
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;// File:src/Three.js
@@ -72901,7 +72988,7 @@
 
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72926,11 +73013,11 @@
 	
 	var _lscache2 = _interopRequireDefault(_lscache);
 	
-	var _htmlTemplatesAccountListHtml = __webpack_require__(67);
+	var _htmlTemplatesAccountListHtml = __webpack_require__(69);
 	
 	var _htmlTemplatesAccountListHtml2 = _interopRequireDefault(_htmlTemplatesAccountListHtml);
 	
-	var _htmlTemplatesCreateAccountHtml = __webpack_require__(68);
+	var _htmlTemplatesCreateAccountHtml = __webpack_require__(70);
 	
 	var _htmlTemplatesCreateAccountHtml2 = _interopRequireDefault(_htmlTemplatesCreateAccountHtml);
 	
@@ -73022,13 +73109,13 @@
 	module.exports = accountControllerView;
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports) {
 
 	module.exports = "<table class=\"table table-striped table-bordered table-hover\">\n  <tr>\n    <th>number</th>\n  </tr>\n  <tr>\n    <td>1</td>\n  </tr>\n  <tr>\n    <td>2</td>\n  </tr>\n</table>\n";
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<form>\n\t<label for=\"name-field\">Name</label>\n\t<input class=\"form-control\" type=\"text\" id=\"name-field\">\n</form>\n<button class=\"btn btn-primary btn-done\">done</button>\n";

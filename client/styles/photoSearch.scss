@@ -1,0 +1,17 @@
+
+.search-container {
+
+  .photo {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    display: inline-block;
+
+    img {
+      width: 100%;
+    }
+  }
+
+}
+
+// nesting is available b/c we are using sass
