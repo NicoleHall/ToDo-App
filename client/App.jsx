@@ -19,7 +19,7 @@ $(function(){
   //  this is the javascript router
 
   switch (url) {
-    case '/':
+    case '/personalPortfolio':
       personalPortfolio.init();
       break;
     case '/pages/todo.html':

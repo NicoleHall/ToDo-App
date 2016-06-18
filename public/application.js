@@ -99,7 +99,7 @@
 	  //  this is the javascript router
 	
 	  switch (url) {
-	    case '/':
+	    case '/personalPortfolio':
 	      _pagesPersonalPortfolio2['default'].init();
 	      break;
 	    case '/pages/todo.html':
@@ -10039,6 +10039,7 @@
 	  },
 	  initialize: function initialize() {
 	    this.model.fetch();
+	    this.model.on('change', this.render, this);
 	  },
 	  render: function render() {
 	    // render the todo items
@@ -18382,14 +18383,36 @@
 	    completed: false
 	  },
 	  fetch: function fetch() {
-	    var data = _lscache2['default'].get('todos');
-	    data = this.applySchema(data);
-	    this.set('todos', data);
+	    var that = this;
+	    $.ajax({
+	      url: '/api',
+	      method: 'GET',
+	      //  this complete function will be asychronis
+	      complete: function complete(response) {
+	        var dataString = response.responseText;
+	        var data = JSON.parse(dataString);
+	        data = that.applySchema(data);
+	        that.set('todos', data);
+	      }
+	    });
+	    // var data = lscache.get('todos');
+	    // data = this.applySchema(data);
+	    // this.set('todos', data);
 	  },
 	  save: function save() {
-	    var data = this.get('todos');
-	    data = this.applySchema(data);
-	    _lscache2['default'].set('todos', data);
+	    var that = this;
+	    var todos = this.get('todos');
+	    $.ajax({
+	      url: '/api',
+	      method: 'POST',
+	      data: { todos: JSON.stringify(todos) },
+	      complete: function complete(response) {
+	        var dataString = response.responseText;
+	        var data = JSON.parse(dataString);
+	        data = that.applySchema(data);
+	        that.set('todos', data);
+	      }
+	    });
 	  },
 	  applySchema: function applySchema(todos) {
 	    var data = todos;
