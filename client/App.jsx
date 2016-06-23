@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import 'styles/main.scss';
-import TodoControllerView from 'pages/todo/todoController';
+import TodoControllerView from 'pages/todoReact/todoController';
+// import TodoControllerView from 'pages/todo/todoController';
 import project from 'pages/project';
 import photoSearch from 'pages/photoSearch';
 import funnySquares from 'pages/funnySquares';

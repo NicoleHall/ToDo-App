@@ -1,1 +1,1 @@
-[{"title":"new","id":0,"completed":false},{"title":"second todo"}]
+[{"title":"next best thing","id":0,"completed":true,"isEditing":false},{"title":"edited thing","id":1,"completed":false,"isEditing":true}]
