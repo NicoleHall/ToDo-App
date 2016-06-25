@@ -4,17 +4,15 @@ var $ = require('jquery');
 window.jQuery = window.$ = $;
 require('bootstrap');
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-//import _ from 'underscore';
+import _ from 'underscore';
 import Backbone from 'backbone';
-import todoModel from 'pages/todoReact/todoModel';
-import TodoItemView from 'pages/todoReact/todoView';
-
+import Handlebars from 'handlebars';
+import todoModel from 'pages/todo/todoModel';
+import TodoItemView from 'pages/todo/todoView';
 
 // controller view
 
-var TodoControllerView = Backbone.View.extend({
+var TodoListView = Backbone.View.extend({
   el: '.todo-container',
   model: todoModel,
   events: {
@@ -29,14 +27,9 @@ var TodoControllerView = Backbone.View.extend({
     var todos = this.model.get('todos');
     var $ul = this.$el.find('ul');
     $ul.html('');
-    var controller = this;
-    todos.forEach(function(todo){
-      var $li = $('<li class="list-group-item row"></li>');
-      $ul.append($li);
-      ReactDOM.render(
-        <TodoItemView data={todo} controller={controller}/>,
-        $li[0] // get original DOMnode from jQuery object
-      );
+    todos.map(function(todo){
+      var view = new TodoItemView(todo, controller);
+      $ul.append(view.$el);
     });
   },
   addTodoItem: function(){
@@ -44,9 +37,19 @@ var TodoControllerView = Backbone.View.extend({
     var newTitle = $input.val();
     if (newTitle === '') { return; }
     this.model.addItem(newTitle);
-    $input.val('');
+  },
+  removeItem: function(id){
+    this.model.removeItem(id);
     this.render();
   },
+  itemCompleted: function(id, isCompleted){
+    this.model.itemCompleted(id, isCompleted);
+    this.render();
+  },
+  titleEdit: function(newTitle, id){
+    this.model.editTitle(newTitle, id);
+    this.render();
+  }
 });
 
 module.exports = TodoControllerView;

@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import 'styles/main.scss';
-import TodoControllerView from 'pages/todoReact/todoController';
+import TodoListView from 'pages/todoReact/todoListView';
 // import TodoControllerView from 'pages/todo/todoController';
 import project from 'pages/project';
 import photoSearch from 'pages/photoSearch';
@@ -24,7 +24,7 @@ $(function(){
       personalPortfolio.init();
       break;
     case '/pages/todo.html':
-      var todoControllerView = new TodoControllerView();
+      var todoListView = new TodoListView();
       break;
     case '/pages/project.html':
       project.init();
