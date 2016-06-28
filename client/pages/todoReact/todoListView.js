@@ -56,6 +56,7 @@ var TodoListView = Backbone.View.extend({
       $input.val('');
     };
   }
+
 });
 
 module.exports = TodoListView;

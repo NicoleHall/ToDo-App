@@ -10078,6 +10078,7 @@
 	      $input.val('');
 	    };
 	  }
+	
 	});
 	
 	module.exports = TodoListView;
@@ -33279,6 +33280,12 @@
 	    item.isEditing = true;
 	    this.set('todos', todos);
 	    this.save();
+	  },
+	  navigateAwayFromEdit: function navigateAwayFromEdit(id) {
+	    var todos = this.get('todos');
+	    var item = _underscore2['default'].findWhere(todos, { id: id });
+	    item.isEditing = false;
+	    this.save();
 	  }
 	});
 	
@@ -35752,7 +35759,7 @@
 	      title = _react2['default'].createElement(
 	        'div',
 	        { className: 'col-sm-10' },
-	        _react2['default'].createElement('input', { type: 'text', className: 'form-control', defaultValue: todo.title, onChange: function () {}, onKeyPress: this.editKeypress })
+	        _react2['default'].createElement('input', { type: 'text', className: 'form-control', defaultValue: todo.title, onChange: function () {}, onKeyUp: this.editKeypress })
 	      );
 	    }
 	    return _react2['default'].createElement(
@@ -35792,11 +35799,10 @@
 	    _pagesTodoReactTodoDispatcher2['default'].startEditMode(id);
 	  },
 	  editKeypress: function editKeypress(event) {
-	    if (event.which === 13) {
-	      var id = this.props.data.id;
-	      var newTitle = (0, _jquery2['default'])('li').eq(id).find('input[type="text"]').val();
-	      _pagesTodoReactTodoDispatcher2['default'].editTodoTitle(id, newTitle, event);
-	    }
+	
+	    var id = this.props.data.id;
+	    var newTitle = (0, _jquery2['default'])('li').eq(id).find('input[type="text"]').val();
+	    _pagesTodoReactTodoDispatcher2['default'].editTodoTitle(id, newTitle, event);
 	  }
 	});
 	
@@ -35829,7 +35835,11 @@
 	  editTodoTitle: function editTodoTitle(id, title, event) {
 	    if (event.which === 13 && typeof title === 'string' && title.length > 0) {
 	      _pagesTodoReactTodoModel2['default'].editTitle(id, title);
-	    }
+	    } else if (event.which === 27)
+	      // console.log(event.which);
+	      {
+	        _pagesTodoReactTodoModel2['default'].navigateAwayFromEdit(id);
+	      }
 	  },
 	  startEditMode: function startEditMode(id) {
 	    _pagesTodoReactTodoModel2['default'].startEditing(id);

@@ -18,7 +18,7 @@ var TodoItem = React.createClass({
     if (todo.isEditing) {
       title = (
         <div className="col-sm-10">
-          <input type="text" className="form-control" defaultValue={todo.title} onChange={function(){}} onKeyPress={this.editKeypress}></input>
+          <input type="text" className="form-control" defaultValue={todo.title} onChange={function(){}} onKeyUp={this.editKeypress}></input>
         </div>
       );
     }
@@ -49,11 +49,11 @@ var TodoItem = React.createClass({
     dispatcher.startEditMode(id);
   },
   editKeypress: function(event){
-    if (event.which === 13) {
-      var id = this.props.data.id;
-      var newTitle = $('li').eq(id).find('input[type="text"]').val();
-      dispatcher.editTodoTitle(id, newTitle, event);
-    }
+
+    var id = this.props.data.id;
+    var newTitle = $('li').eq(id).find('input[type="text"]').val();
+    dispatcher.editTodoTitle(id, newTitle, event);
+
   }
 });
 

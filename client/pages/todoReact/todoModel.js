@@ -96,6 +96,12 @@ var TodoModel = Backbone.Model.extend({
     item.isEditing = true;
     this.set('todos', todos);
     this.save();
+  },
+  navigateAwayFromEdit: function(id){
+    var todos = this.get('todos');
+    var item = _.findWhere(todos, {id: id});
+    item.isEditing = false;
+    this.save();
   }
 });
 

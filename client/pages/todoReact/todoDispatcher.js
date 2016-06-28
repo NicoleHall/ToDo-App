@@ -23,6 +23,9 @@ var dispatcher = {
     ) {
       todoModel.editTitle(id, title);
     }
+    else if (event.which === 27)
+    // console.log(event.which);
+    { todoModel.navigateAwayFromEdit(id); }
   },
   startEditMode: function(id){
     todoModel.startEditing(id);
