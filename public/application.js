@@ -10043,7 +10043,8 @@
 	  el: '.todo-container',
 	  model: _pagesTodoReactTodoModel2['default'],
 	  events: {
-	    'click .btn-add': 'addTodoItem'
+	    'click .btn-add': 'addTodoItem',
+	    'keydown input.input-name': 'addTodoItemWithEnterKey'
 	  },
 	  initialize: function initialize() {
 	    this.model.fetch();
@@ -10066,6 +10067,16 @@
 	    var newTitle = $input.val();
 	    _pagesTodoReactTodoDispatcher2['default'].addTodo(newTitle);
 	    $input.val('');
+	  },
+	
+	  addTodoItemWithEnterKey: function addTodoItemWithEnterKey(event) {
+	    var code = event.keyCode || event.which;
+	    if (code === 13) {
+	      var $input = this.$el.find('input.input-name');
+	      var newTitle = $input.val();
+	      _pagesTodoReactTodoDispatcher2['default'].addTodo(newTitle);
+	      $input.val('');
+	    };
 	  }
 	});
 	

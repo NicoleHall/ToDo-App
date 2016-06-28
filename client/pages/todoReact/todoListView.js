@@ -19,7 +19,8 @@ var TodoListView = Backbone.View.extend({
   el: '.todo-container',
   model: todoModel,
   events: {
-    'click .btn-add': 'addTodoItem'
+    'click .btn-add': 'addTodoItem',
+    'keydown input.input-name': 'addTodoItemWithEnterKey'
   },
   initialize: function(){
     this.model.fetch();
@@ -44,8 +45,17 @@ var TodoListView = Backbone.View.extend({
     var newTitle = $input.val();
     dispatcher.addTodo(newTitle);
     $input.val('');
-
   },
+
+  addTodoItemWithEnterKey: function(event){
+    var code = event.keyCode || event.which;
+    if (code === 13) {
+      var $input = this.$el.find('input.input-name');
+      var newTitle = $input.val();
+      dispatcher.addTodo(newTitle);
+      $input.val('');
+    };
+  }
 });
 
 module.exports = TodoListView;
