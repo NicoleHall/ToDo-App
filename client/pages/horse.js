@@ -34,7 +34,7 @@ var app = {
       light.position.set( -1, -1, -1 ).normalize();
       scene.add( light );
       var loader = new THREE.JSONLoader();
-      loader.load( "https://rawgit.com/mrdoob/three.js/master/examples/models/animated/horse.js", function ( geometry ) {
+      loader.load( "https://combinatronics.com/mrdoob/three.js/master/examples/models/animated/horse.js", function ( geometry ) {
         var material = new THREE.MeshLambertMaterial( {
           vertexColors: THREE.FaceColors,
           morphTargets: true,
